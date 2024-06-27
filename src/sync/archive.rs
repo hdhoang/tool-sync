@@ -48,52 +48,64 @@ impl<'a> Archive<'a> {
         exe_name: &'a str,
         asset_name: &'a str,
     ) -> Option<Archive<'a>> {
-        if asset_name.ends_with(".AppImage") {
-            return Archive {
-                archive_path,
-                tmp_dir,
-                exe_name,
-                archive_type: ArchiveType::AppImage(asset_name),
+        match asset_name.rsplit_once('.') {
+            None | Some((_, "exe")) => {
+                // un-compressed binary
+                return Archive {
+                    archive_path,
+                    tmp_dir,
+                    exe_name,
+                    archive_type: ArchiveType::Exe(asset_name),
+                }
+                .into();
             }
-            .into();
-        }
-
-        if asset_name.ends_with(".tgz") {
-            return asset_name.strip_suffix(".tgz").map(|dir| Archive {
-                archive_path,
-                tmp_dir,
-                exe_name,
-                archive_type: ArchiveType::TarGz(dir),
-            });
-        }
-        let tar_gz_dir = asset_name.strip_suffix(".tar.gz");
-        match tar_gz_dir {
-            Some(tar_gz_dir) => Some(Archive {
-                archive_path,
-                tmp_dir,
-                exe_name,
-                archive_type: ArchiveType::TarGz(tar_gz_dir),
-            }),
-            None => {
-                let zip_dir = asset_name.strip_suffix(".zip");
-
-                match zip_dir {
-                    Some(zip_dir) => Some(Archive {
+            Some((_, ext)) if ext.len() > 10 => {
+                // un-compressed binary
+                return Archive {
+                    archive_path,
+                    tmp_dir,
+                    exe_name,
+                    archive_type: ArchiveType::Exe(asset_name),
+                }
+                .into();
+            }
+            Some((_, "AppImage")) => {
+                return Archive {
+                    archive_path,
+                    tmp_dir,
+                    exe_name,
+                    archive_type: ArchiveType::AppImage(asset_name),
+                }
+                .into();
+            }
+            Some((prefix, "tgz")) => {
+                return Archive {
+                    archive_path,
+                    tmp_dir,
+                    exe_name,
+                    archive_type: ArchiveType::TarGz(prefix),
+                }
+                .into()
+            }
+            Some((prefix, "zip")) => {
+                return Archive {
+                    archive_path,
+                    tmp_dir,
+                    exe_name,
+                    archive_type: ArchiveType::Zip(prefix),
+                }
+                .into()
+            }
+            _ => {
+                let tar_gz_dir = asset_name.strip_suffix(".tar.gz");
+                match tar_gz_dir {
+                    Some(tar_gz_dir) => Some(Archive {
                         archive_path,
                         tmp_dir,
                         exe_name,
-                        archive_type: ArchiveType::Zip(zip_dir),
+                        archive_type: ArchiveType::TarGz(tar_gz_dir),
                     }),
-                    None => {
-                        let exe_file = asset_name.strip_suffix(".exe");
-
-                        exe_file.map(|_| Archive {
-                            archive_path,
-                            tmp_dir,
-                            exe_name,
-                            archive_type: ArchiveType::Exe(asset_name),
-                        })
-                    }
+                    None => None,
                 }
             }
         }
