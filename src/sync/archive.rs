@@ -193,6 +193,7 @@ fn exe_paths(
 
     vec![
         [asset_name, &exe_name].iter().collect(),
+        ["tmp", asset_name, &exe_name].iter().collect(),
         [&exe_name].iter().collect(),
         [&exe_name, &exe_name].iter().collect(),
         ["bin", &exe_name].iter().collect(),
