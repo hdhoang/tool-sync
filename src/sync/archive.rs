@@ -192,9 +192,14 @@ fn exe_paths(
     let exe_name = mk_exe_name(exe_name);
 
     vec![
+        asset_name.into(),
+        asset_name.trim_end_matches(".tar.gz").into(),
+        asset_name.trim_end_matches(".tgz").into(),
+        asset_name.trim_end_matches(".zip").into(),
+
+        exe_name.clone().into(),
         [asset_name, &exe_name].iter().collect(),
         ["tmp", asset_name, &exe_name].iter().collect(),
-        [&exe_name].iter().collect(),
         [&exe_name, &exe_name].iter().collect(),
         ["bin", &exe_name].iter().collect(),
         [asset_name, "bin", &exe_name].iter().collect(),
