@@ -97,16 +97,12 @@ impl<'a> Archive<'a> {
                 .into()
             }
             _ => {
-                let tar_gz_dir = asset_name.strip_suffix(".tar.gz");
-                match tar_gz_dir {
-                    Some(tar_gz_dir) => Some(Archive {
+                asset_name.strip_suffix(".tar.gz").map(|tar_gz_dir| Archive {
                         archive_path,
                         tmp_dir,
                         exe_name,
                         archive_type: ArchiveType::TarGz(tar_gz_dir),
-                    }),
-                    None => None,
-                }
+                    })
             }
         }
     }
