@@ -9,6 +9,7 @@ pub struct Archive<'a> {
     archive_path: &'a PathBuf,
     tmp_dir: &'a Path,
     exe_name: &'a str,
+    tag: &'a str,
     archive_type: ArchiveType<'a>,
 }
 
@@ -47,6 +48,7 @@ impl<'a> Archive<'a> {
         tmp_dir: &'a Path,
         exe_name: &'a str,
         asset_name: &'a str,
+        tag: &'a str,
     ) -> Option<Archive<'a>> {
         match asset_name.rsplit_once('.') {
             None | Some((_, "exe")) => {
@@ -55,6 +57,7 @@ impl<'a> Archive<'a> {
                     archive_path,
                     tmp_dir,
                     exe_name,
+                    tag,
                     archive_type: ArchiveType::Exe(asset_name),
                 }
                 .into();
@@ -65,6 +68,7 @@ impl<'a> Archive<'a> {
                     archive_path,
                     tmp_dir,
                     exe_name,
+                    tag,
                     archive_type: ArchiveType::Exe(asset_name),
                 }
                 .into();
@@ -74,6 +78,7 @@ impl<'a> Archive<'a> {
                     archive_path,
                     tmp_dir,
                     exe_name,
+                    tag,
                     archive_type: ArchiveType::AppImage(asset_name),
                 }
                 .into();
@@ -83,6 +88,7 @@ impl<'a> Archive<'a> {
                     archive_path,
                     tmp_dir,
                     exe_name,
+                    tag,
                     archive_type: ArchiveType::TarGz(prefix),
                 }
                 .into()
@@ -92,6 +98,7 @@ impl<'a> Archive<'a> {
                     archive_path,
                     tmp_dir,
                     exe_name,
+                    tag,
                     archive_type: ArchiveType::Zip(prefix),
                 }
                 .into()
@@ -101,6 +108,7 @@ impl<'a> Archive<'a> {
                         archive_path,
                         tmp_dir,
                         exe_name,
+                    tag,
                         archive_type: ArchiveType::TarGz(tar_gz_dir),
                     })
             }
@@ -119,13 +127,13 @@ impl<'a> Archive<'a> {
             // unpack .tar.gz archive
             ArchiveType::TarGz(asset_name) => {
                 unpack_tar(self.archive_path, self.tmp_dir).map_err(UnpackError::IOError)?;
-                find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name)
+                find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name, self.tag)
             }
 
             // unpack .zip archive
             ArchiveType::Zip(asset_name) => {
                 unpack_zip(self.archive_path, self.tmp_dir)?;
-                find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name)
+                find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name, self.tag)
             }
         }
     }
@@ -158,8 +166,9 @@ fn find_path_to_exe(
     tmp_dir: &Path,
     exe_name: &str,
     asset_name: &str,
+    tag: &str,
 ) -> Result<PathBuf, UnpackError> {
-    let path_candidates = exe_paths(exe_name, asset_name);
+    let path_candidates = exe_paths(exe_name, asset_name, tag);
 
     // find a path
     for path in path_candidates {
@@ -184,6 +193,7 @@ fn find_path_to_exe(
 fn exe_paths(
     exe_name: &str,
     asset_name: &str,
+    tag: &str,
 ) -> Vec<PathBuf> {
     let exe_name = mk_exe_name(exe_name);
 
@@ -199,5 +209,8 @@ fn exe_paths(
         [&exe_name, &exe_name].iter().collect(),
         ["bin", &exe_name].iter().collect(),
         [asset_name, "bin", &exe_name].iter().collect(),
+
+        [&format!("{exe_name}-{tag}"), &exe_name].iter().collect(),
+        [&format!("{exe_name}-{}", tag.trim_start_matches('v')), &exe_name].iter().collect(),
     ]
 }

@@ -77,6 +77,7 @@ impl<'a> Installer<'a> {
             self.tmp_dir.path(),
             &tool_asset.exe_name,
             &tool_asset.asset.name,
+            &tool_asset.tag,
         );
 
         match archive {
