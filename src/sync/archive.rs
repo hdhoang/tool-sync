@@ -1,6 +1,7 @@
-use flate2::read::GzDecoder;
+use deko::AnyDecoder;
 use std::fmt::{Display, Formatter};
 use std::fs::File;
+use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 use crate::model::asset_name::mk_exe_name;
@@ -18,7 +19,7 @@ enum ArchiveType<'a> {
     AppImage(&'a str),
     Exe(&'a str),
     Zip(&'a str),
-    TarGz(&'a str),
+    TarBall(&'a str),
 }
 
 pub enum UnpackError {
@@ -89,7 +90,7 @@ impl<'a> Archive<'a> {
                     tmp_dir,
                     exe_name,
                     tag,
-                    archive_type: ArchiveType::TarGz(prefix),
+                    archive_type: ArchiveType::TarBall(prefix),
                 }
                 .into()
             }
@@ -103,14 +104,19 @@ impl<'a> Archive<'a> {
                 }
                 .into()
             }
-            _ => {
-                asset_name.strip_suffix(".tar.gz").map(|tar_gz_dir| Archive {
-                        archive_path,
-                        tmp_dir,
-                        exe_name,
+            Some((prefix, "xz"|"gz")) => {
+                return Archive {
+                    archive_path,
+                    tmp_dir,
+                    exe_name,
                     tag,
-                        archive_type: ArchiveType::TarGz(tar_gz_dir),
-                    })
+                    archive_type: ArchiveType::TarBall(prefix.trim_end_matches(".tar")),
+                }
+                .into()
+            }
+            _ => {
+                dbg!("unsupported asset format {asset_name}");
+                return None
             }
         }
     }
@@ -125,7 +131,7 @@ impl<'a> Archive<'a> {
             ArchiveType::Exe(exe_file) => Ok(self.tmp_dir.join(exe_file)),
 
             // unpack .tar.gz archive
-            ArchiveType::TarGz(asset_name) => {
+            ArchiveType::TarBall(asset_name) => {
                 unpack_tar(self.archive_path, self.tmp_dir).map_err(UnpackError::IOError)?;
                 find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name, self.tag)
             }
@@ -145,7 +151,7 @@ fn unpack_tar(
 ) -> Result<(), std::io::Error> {
     // unpack tar_path to tmp_dir
     let tar_file = File::open(tar_path)?;
-    let tar_decoder = GzDecoder::new(tar_file);
+    let tar_decoder = AnyDecoder::new(BufReader::new(tar_file));
     let mut archive = tar::Archive::new(tar_decoder);
     archive.unpack(tmp_dir)
 }
@@ -199,6 +205,7 @@ fn exe_paths(
 
     vec![
         asset_name.into(),
+        asset_name.trim_end_matches(".tar.xz").into(),
         asset_name.trim_end_matches(".tar.gz").into(),
         asset_name.trim_end_matches(".tgz").into(),
         asset_name.trim_end_matches(".zip").into(),
