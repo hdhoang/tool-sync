@@ -142,7 +142,7 @@ pub fn build_db() -> BTreeMap<String, ToolInfo> {
             exe_name: "starship",
             linux: "x86_64-unknown-linux-musl",
             macos: "x86_64-apple-darwin",
-            windows: "x86_64-pc-windows-msvc",
+            windows: "x86_64-pc-windows-msvc.zip",
             tag: ToolInfoTag::Latest,
         },
     );
