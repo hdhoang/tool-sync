@@ -204,7 +204,7 @@ mod tests {
             Err(error) => {
                 assert_eq!(
                     String::from(
-                        "[Parsing Error] expected an equals, found an identifier at line 1 column 8"
+                        "[Parsing Error] TOML parse error at line 1, column 8\n  |\n1 | broken toml\n  |        ^\nexpected `.`, `=`\n"
                     ),
                     error.to_string()
                 );
