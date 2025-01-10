@@ -3,7 +3,10 @@ use crate::model::asset_name::AssetName;
 use crate::model::tool::{Tool, ToolError, ToolInfo, ToolInfoTag};
 use crate::sync::db::lookup_tool;
 
-pub fn configure_tool(tool_name: &str, config_asset: &ConfigAsset) -> Tool {
+pub fn configure_tool(
+    tool_name: &str,
+    config_asset: &ConfigAsset,
+) -> Tool {
     match lookup_tool(tool_name) {
         // This is a known tool; we get hardcoded info and update it with config
         Some(tool_info) => Tool::Known(tool_info.configure(config_asset)),
@@ -56,7 +59,10 @@ fn full_configure(config_asset: &ConfigAsset) -> Option<ToolInfo> {
 
 impl ToolInfo {
     /// Update hardcoded tool info with configuration from TOML
-    pub fn configure(&self, config_asset: &ConfigAsset) -> ToolInfo {
+    pub fn configure(
+        &self,
+        config_asset: &ConfigAsset,
+    ) -> ToolInfo {
         ToolInfo {
             owner: config_asset
                 .owner

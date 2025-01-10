@@ -48,7 +48,12 @@ impl SyncProgress {
         }
     }
 
-    fn fmt_prefix(&self, emoji: Emoji, tool_name: &str, tag: &str) -> String {
+    fn fmt_prefix(
+        &self,
+        emoji: Emoji,
+        tool_name: &str,
+        tag: &str,
+    ) -> String {
         let aligned_tool = format!(
             "{:tool_width$} {:tag_width$}",
             tool_name,
@@ -60,7 +65,11 @@ impl SyncProgress {
         format!("{}{}", emoji, aligned_tool)
     }
 
-    pub fn create_message_bar(&self, tool_name: &str, tag: &str) -> ProgressBar {
+    pub fn create_message_bar(
+        &self,
+        tool_name: &str,
+        tag: &str,
+    ) -> ProgressBar {
         let message_style = ProgressStyle::with_template("{prefix:.bold.dim} {msg}").unwrap();
 
         self.multi_progress.add(
@@ -70,7 +79,10 @@ impl SyncProgress {
         )
     }
 
-    pub fn create_progress_bar(&self, size: u64) -> ProgressBar {
+    pub fn create_progress_bar(
+        &self,
+        size: u64,
+    ) -> ProgressBar {
         let bar_style =
             ProgressStyle::with_template("{bytes}/{total_bytes} {wide_bar:.cyan/blue}").unwrap();
 
@@ -82,7 +94,12 @@ impl SyncProgress {
         pb.finish_and_clear()
     }
 
-    pub fn success(&self, pb: ProgressBar, tool_name: &str, tag: &str) {
+    pub fn success(
+        &self,
+        pb: ProgressBar,
+        tool_name: &str,
+        tag: &str,
+    ) {
         pb.set_prefix(self.fmt_prefix(SUCCESS, tool_name, tag));
 
         let success_msg = format!("{}", style("Completed!").bold().green());

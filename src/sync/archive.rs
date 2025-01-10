@@ -54,69 +54,61 @@ impl<'a> Archive<'a> {
         match asset_name.rsplit_once('.') {
             None | Some((_, "exe")) => {
                 // un-compressed binary
-                return Archive {
+                Archive {
                     archive_path,
                     tmp_dir,
                     exe_name,
                     tag,
                     archive_type: ArchiveType::Exe(asset_name),
                 }
-                .into();
+                .into()
             }
             Some((_, ext)) if ext.len() > 10 => {
                 // un-compressed binary
-                return Archive {
+                Archive {
                     archive_path,
                     tmp_dir,
                     exe_name,
                     tag,
                     archive_type: ArchiveType::Exe(asset_name),
                 }
-                .into();
-            }
-            Some((_, "AppImage")) => {
-                return Archive {
-                    archive_path,
-                    tmp_dir,
-                    exe_name,
-                    tag,
-                    archive_type: ArchiveType::AppImage(asset_name),
-                }
-                .into();
-            }
-            Some((prefix, "tgz")) => {
-                return Archive {
-                    archive_path,
-                    tmp_dir,
-                    exe_name,
-                    tag,
-                    archive_type: ArchiveType::TarBall(prefix),
-                }
                 .into()
             }
-            Some((prefix, "zip")) => {
-                return Archive {
-                    archive_path,
-                    tmp_dir,
-                    exe_name,
-                    tag,
-                    archive_type: ArchiveType::Zip(prefix),
-                }
-                .into()
+            Some((_, "AppImage")) => Archive {
+                archive_path,
+                tmp_dir,
+                exe_name,
+                tag,
+                archive_type: ArchiveType::AppImage(asset_name),
             }
-            Some((prefix, "xz"|"gz")) => {
-                return Archive {
-                    archive_path,
-                    tmp_dir,
-                    exe_name,
-                    tag,
-                    archive_type: ArchiveType::TarBall(prefix.trim_end_matches(".tar")),
-                }
-                .into()
+            .into(),
+            Some((prefix, "tgz")) => Archive {
+                archive_path,
+                tmp_dir,
+                exe_name,
+                tag,
+                archive_type: ArchiveType::TarBall(prefix),
             }
+            .into(),
+            Some((prefix, "zip")) => Archive {
+                archive_path,
+                tmp_dir,
+                exe_name,
+                tag,
+                archive_type: ArchiveType::Zip(prefix),
+            }
+            .into(),
+            Some((prefix, "xz" | "gz")) => Archive {
+                archive_path,
+                tmp_dir,
+                exe_name,
+                tag,
+                archive_type: ArchiveType::TarBall(prefix.trim_end_matches(".tar")),
+            }
+            .into(),
             _ => {
-                dbg!("unsupported asset format {asset_name}");
-                return None
+                dbg!("unsupported asset format {}", &asset_name);
+                None
             }
         }
     }
@@ -130,16 +122,28 @@ impl<'a> Archive<'a> {
             // already .exe file without archive (on Windows): no need to unpack
             ArchiveType::Exe(exe_file) => Ok(self.tmp_dir.join(exe_file)),
 
-            // unpack .tar.gz archive
+            // unpack .tar ball
             ArchiveType::TarBall(asset_name) => {
                 unpack_tar(self.archive_path, self.tmp_dir).map_err(UnpackError::IOError)?;
-                find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name, self.tag)
+                find_path_to_exe(
+                    self.archive_path,
+                    self.tmp_dir,
+                    self.exe_name,
+                    asset_name,
+                    self.tag,
+                )
             }
 
             // unpack .zip archive
             ArchiveType::Zip(asset_name) => {
                 unpack_zip(self.archive_path, self.tmp_dir)?;
-                find_path_to_exe(self.archive_path, self.tmp_dir, self.exe_name, asset_name, self.tag)
+                find_path_to_exe(
+                    self.archive_path,
+                    self.tmp_dir,
+                    self.exe_name,
+                    asset_name,
+                    self.tag,
+                )
             }
         }
     }
@@ -209,15 +213,18 @@ fn exe_paths(
         asset_name.trim_end_matches(".tar.gz").into(),
         asset_name.trim_end_matches(".tgz").into(),
         asset_name.trim_end_matches(".zip").into(),
-
         exe_name.clone().into(),
         [asset_name, &exe_name].iter().collect(),
         ["tmp", asset_name, &exe_name].iter().collect(),
         [&exe_name, &exe_name].iter().collect(),
         ["bin", &exe_name].iter().collect(),
         [asset_name, "bin", &exe_name].iter().collect(),
-
         [&format!("{exe_name}-{tag}"), &exe_name].iter().collect(),
-        [&format!("{exe_name}-{}", tag.trim_start_matches('v')), &exe_name].iter().collect(),
+        [
+            &format!("{exe_name}-{}", tag.trim_start_matches('v')),
+            &exe_name,
+        ]
+        .iter()
+        .collect(),
     ]
 }

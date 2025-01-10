@@ -24,7 +24,10 @@ impl Client {
         )
     }
 
-    fn asset_url(&self, asset_id: u32) -> String {
+    fn asset_url(
+        &self,
+        asset_id: u32,
+    ) -> String {
         format!(
             "https://api.github.com/repos/{owner}/{repo}/releases/assets/{asset_id}",
             owner = self.owner,

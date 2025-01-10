@@ -26,7 +26,10 @@ impl PrefetchProgress {
         PrefetchProgress { pb, total_count }
     }
 
-    fn update_message(&self, already_completed: usize) {
+    fn update_message(
+        &self,
+        already_completed: usize,
+    ) {
         let remaining_count = self.total_count - already_completed;
 
         if remaining_count == 0 {
@@ -41,13 +44,21 @@ impl PrefetchProgress {
     }
 
     /// This method can take in any type that implements the [`Display`] trait
-    fn expected_err_msg<Message: Display>(&self, tool_name: &str, msg: Message) {
+    fn expected_err_msg<Message: Display>(
+        &self,
+        tool_name: &str,
+        msg: Message,
+    ) {
         let tool = format!("{}", style(tool_name).cyan().bold());
         self.pb.println(format!("{} {} {}", ERROR, tool, msg))
     }
 
     /// This method can take in any type that implements the [`Display`] trait
-    fn unexpected_err_msg<Message: Display>(&self, tool_name: &str, msg: Message) {
+    fn unexpected_err_msg<Message: Display>(
+        &self,
+        tool_name: &str,
+        msg: Message,
+    ) {
         let tool = format!("{}", style(tool_name).cyan().bold());
         let err_msg = format!(
             r#"{emoji} {tool} {msg}

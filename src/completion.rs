@@ -3,7 +3,10 @@
 use clap_complete::Shell;
 
 // This function can break when clap_complete adds support for a new shell type
-pub fn rename_completion_suggestion(shell: &Shell, bin_name: &str) -> Result<(), RenameError> {
+pub fn rename_completion_suggestion(
+    shell: &Shell,
+    bin_name: &str,
+) -> Result<(), RenameError> {
     let completion_str: String = match shell {
         Shell::Zsh => zsh_completion_help(bin_name),
         Shell::Bash => bash_completion_help(bin_name),
@@ -26,7 +29,10 @@ pub enum RenameError {
 }
 
 impl std::fmt::Display for RenameError {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter,
+    ) -> Result<(), std::fmt::Error> {
         match self {
             RenameError::NewShellFound(shell) => write!(f, "[Rename error]: {}", shell),
         }

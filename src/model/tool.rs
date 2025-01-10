@@ -20,7 +20,10 @@ pub enum ToolError {
 }
 
 impl Display for ToolError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(
+        &self,
+        f: &mut Formatter<'_>,
+    ) -> std::fmt::Result {
         match self {
             ToolError::Suggestion { perhaps } => {
                 write!(f, "[suggestion] Perhaps you meant: '{}'?", perhaps)
@@ -87,7 +90,10 @@ pub struct ToolInfo {
 
 impl ToolInfo {
     /// Select an Asset from all Assets based on which Operating System is used
-    pub fn select_asset(&self, assets: &[Asset]) -> Result<Asset, AssetError> {
+    pub fn select_asset(
+        &self,
+        assets: &[Asset],
+    ) -> Result<Asset, AssetError> {
         match self.asset_name.get_name_by_os() {
             None => Err(AssetError::OsSelectorUnknown),
             Some(asset_name) => {

@@ -29,7 +29,10 @@ pub enum DecodeError {
 }
 
 impl Display for TomlError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(
+        &self,
+        f: &mut Formatter<'_>,
+    ) -> std::fmt::Result {
         match self {
             TomlError::IO(e) => write!(f, "[IO Error] {}", e),
             TomlError::Parse(e) => write!(f, "[Parsing Error] {}", e),
@@ -39,7 +42,10 @@ impl Display for TomlError {
 }
 
 impl Display for DecodeError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(
+        &self,
+        f: &mut Formatter<'_>,
+    ) -> std::fmt::Result {
         match self {
             DecodeError::MissingKey { key } => {
                 write!(f, "The key '{}' is missing (a typo or not specified?)", key)
@@ -79,20 +85,29 @@ pub fn with_parsed_file<F: FnOnce(Config)>(
     }
 }
 
-fn parse_file(config_path: &PathBuf, proxy: Option<String>) -> Result<Config, TomlError> {
+fn parse_file(
+    config_path: &PathBuf,
+    proxy: Option<String>,
+) -> Result<Config, TomlError> {
     let contents = fs::read_to_string(config_path).map_err(|e| TomlError::IO(format!("{}", e)))?;
 
     parse_string(&contents, proxy)
 }
 
-fn parse_string(contents: &str, proxy: Option<String>) -> Result<Config, TomlError> {
+fn parse_string(
+    contents: &str,
+    proxy: Option<String>,
+) -> Result<Config, TomlError> {
     contents
         .parse::<Value>()
         .map_err(TomlError::Parse)
         .and_then(|toml| decode_config(toml, proxy).map_err(TomlError::Decode))
 }
 
-fn decode_config(toml: Value, proxy: Option<String>) -> Result<Config, DecodeError> {
+fn decode_config(
+    toml: Value,
+    proxy: Option<String>,
+) -> Result<Config, DecodeError> {
     let str_store_directory = toml.get("store_directory");
 
     let store_directory = str_store_directory.map_or(
@@ -131,7 +146,10 @@ fn decode_config(toml: Value, proxy: Option<String>) -> Result<Config, DecodeErr
     })
 }
 
-fn decode_config_asset(table: &Map<String, Value>, proxy: &Option<String>) -> ConfigAsset {
+fn decode_config_asset(
+    table: &Map<String, Value>,
+    proxy: &Option<String>,
+) -> ConfigAsset {
     let owner = str_by_key(table, "owner");
     let repo = str_by_key(table, "repo");
     let exe_name = str_by_key(table, "exe_name");
@@ -179,7 +197,10 @@ fn decode_asset_name(table: &Map<String, Value>) -> AssetName {
     }
 }
 
-fn str_by_key(table: &Map<String, Value>, key: &str) -> Option<String> {
+fn str_by_key(
+    table: &Map<String, Value>,
+    key: &str,
+) -> Option<String> {
     table.get(key).and_then(|v| v.as_str()).map(String::from)
 }
 

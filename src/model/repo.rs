@@ -12,7 +12,10 @@ pub enum RepoError {
 }
 
 impl Display for RepoError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(
+        &self,
+        f: &mut Formatter<'_>,
+    ) -> std::fmt::Result {
         match self {
             RepoError::NotFound { owner, repo, tag } => match tag {
                 ToolInfoTag::Latest => {

@@ -36,7 +36,10 @@ pub fn run() {
     }
 }
 
-fn generate_completion(shell: clap_complete::Shell, rename: Option<String>) {
+fn generate_completion(
+    shell: clap_complete::Shell,
+    rename: Option<String>,
+) {
     let mut cmd: clap::Command = Cli::command();
     match rename {
         Some(cmd_name) => {

@@ -30,7 +30,10 @@ pub enum AssetError {
 }
 
 impl Display for AssetError {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(
+        &self,
+        f: &mut Formatter<'_>,
+    ) -> std::fmt::Result {
         match self {
             Self::OsSelectorUnknown => {
                 write!(
