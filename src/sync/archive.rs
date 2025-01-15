@@ -82,14 +82,6 @@ impl<'a> Archive<'a> {
                 archive_type: ArchiveType::AppImage(asset_name),
             }
             .into(),
-            Some((prefix, "tgz")) => Archive {
-                archive_path,
-                tmp_dir,
-                exe_name,
-                tag,
-                archive_type: ArchiveType::TarBall(prefix),
-            }
-            .into(),
             Some((prefix, "zip")) => Archive {
                 archive_path,
                 tmp_dir,
@@ -98,7 +90,7 @@ impl<'a> Archive<'a> {
                 archive_type: ArchiveType::Zip(prefix),
             }
             .into(),
-            Some((prefix, "xz" | "gz")) => Archive {
+            Some((prefix, "xz" | "gz" | "tgz")) => Archive {
                 archive_path,
                 tmp_dir,
                 exe_name,
