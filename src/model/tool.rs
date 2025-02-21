@@ -44,8 +44,9 @@ pub enum ToolInfoTag {
 }
 
 const LATEST_VERSION: &str = "latest";
-const COMPANION_EXTENSIONS: [&str; 13] = [
+const COMPANION_EXTENSIONS: [&str; 14] = [
     ".asc",
+    ".b3",
     ".md5",
     ".md5sum",
     ".sbom",
