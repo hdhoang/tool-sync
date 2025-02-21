@@ -1,6 +1,6 @@
 use std::fmt::Display;
 
-use console::{style, Emoji};
+use console::{Emoji, style};
 use indicatif::{MultiProgress, ProgressBar, ProgressStyle};
 
 pub struct SyncProgress {

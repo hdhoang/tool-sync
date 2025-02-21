@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 use std::fmt::{Display, Formatter};
 use std::fs;
 use std::path::PathBuf;
-use toml::{map::Map, Value};
+use toml::{Value, map::Map};
 
 use crate::config::schema::{Config, ConfigAsset};
 use crate::infra::err;
@@ -252,7 +252,9 @@ mod tests {
             found: Value::Integer(32),
         });
         assert_eq!(
-            String::from("[Decode Error] unexpected value type 'store_directory=32': expected `string`, found `integer`"),
+            String::from(
+                "[Decode Error] unexpected value type 'store_directory=32': expected `string`, found `integer`"
+            ),
             toml_error.to_string()
         );
     }

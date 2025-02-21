@@ -1,4 +1,4 @@
-use console::{style, Emoji};
+use console::{Emoji, style};
 use indicatif::{HumanBytes, ProgressBar, ProgressStyle};
 
 use std::collections::BTreeMap;

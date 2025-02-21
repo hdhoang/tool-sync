@@ -203,32 +203,28 @@ fn exe_paths(
     vec![
         exe_name.clone().into(),
         asset_name.into(),
-
         asset_name.trim_end_matches(".tar.xz").into(),
         asset_name.trim_end_matches(".tar.gz").into(),
         asset_name.trim_end_matches(".tgz").into(),
         asset_name.trim_end_matches(".zip").into(),
-
         [asset_name, &exe_name].iter().collect(),
         ["tmp", asset_name, &exe_name].iter().collect(),
         [&exe_name, &exe_name].iter().collect(),
-
         ["bin", &exe_name].iter().collect(),
         [asset_name, "bin", &exe_name].iter().collect(),
-
         [&format!("{exe_name}-{tag}"), &exe_name].iter().collect(),
-        [&format!("{exe_name}-{tag}-x86_64"), "usr/bin", &exe_name].iter().collect(),
+        [&format!("{exe_name}-{tag}-x86_64"), "usr/bin", &exe_name]
+            .iter()
+            .collect(),
         [
-            &format!("{exe_name}-{}-x86_64", numeric_tag), "usr/bin",
+            &format!("{exe_name}-{}-x86_64", numeric_tag),
+            "usr/bin",
             &exe_name,
         ]
         .iter()
         .collect(),
-        [
-            &format!("{exe_name}-{}", numeric_tag),
-            &exe_name,
-        ]
-        .iter()
-        .collect(),
+        [&format!("{exe_name}-{}", numeric_tag), &exe_name]
+            .iter()
+            .collect(),
     ]
 }
