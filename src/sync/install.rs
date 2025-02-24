@@ -2,7 +2,7 @@ use indicatif::ProgressBar;
 use std::error::Error;
 use std::fs;
 use std::path::{Path, PathBuf};
-use tempdir::TempDir;
+use tempfile::TempDir;
 
 #[cfg(target_family = "unix")]
 use std::os::unix::fs::PermissionsExt;
@@ -28,7 +28,7 @@ impl Installer<'_> {
         store_directory: &Path,
         sync_progress: SyncProgress,
     ) -> Installer {
-        let tmp_dir = TempDir::new("tool-sync");
+        let tmp_dir = TempDir::with_prefix("tool-sync-");
         match tmp_dir {
             Err(e) => {
                 err::abort_suggest_issue(format!("Error creating temporary directory: {}", e));
