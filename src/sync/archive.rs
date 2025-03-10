@@ -52,7 +52,7 @@ impl<'a> Archive<'a> {
         tag: &'a str,
     ) -> Option<Archive<'a>> {
         match asset_name.rsplit_once('.') {
-            None | Some((_, "exe")) => {
+            None | Some((_, "exe")) | Some((_, "so")) => {
                 // un-compressed binary
                 Archive {
                     archive_path,
