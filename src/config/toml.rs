@@ -56,9 +56,7 @@ impl Display for DecodeError {
                 found,
             } => write!(
                 f,
-                "unexpected value type '{}={}': expected `{}`, found `{}`",
-                key,
-                found,
+                "unexpected value type '{key}={found:?}': expected `{}`, found `{}`",
                 expected.type_str(),
                 found.type_str()
             ),
