@@ -145,7 +145,7 @@ fn prefetch_tool(
 
             match client.fetch_release_info() {
                 Err(e) => {
-                    if let Some(ureq::Error::Status(404, _)) = e.downcast_ref::<ureq::Error>() {
+                    if let Some(ureq::Error::StatusCode(404)) = e.downcast_ref::<ureq::Error>() {
                         prefetch_progress.unexpected_err_msg(
                             tool_name,
                             RepoError::NotFound {

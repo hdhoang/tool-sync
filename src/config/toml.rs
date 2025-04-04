@@ -153,24 +153,20 @@ fn decode_config_asset(
     let exe_name = str_by_key(table, "exe_name");
     let asset_name = decode_asset_name(table);
     let tag = str_by_key(table, "tag");
+    let proxy = proxy.as_ref().map(|s| {
+        ureq::Proxy::new(s).unwrap_or_else(|_| {
+            panic!("Could not parse proxy address, please check the syntax: {s}")
+        })
+    });
 
-    let mut config_asset = ConfigAsset {
+    ConfigAsset {
         owner,
         repo,
         exe_name,
         asset_name,
         tag,
-        proxy: None,
-    };
-    if let Some(p) = proxy {
-        config_asset.proxy = Some(ureq::Proxy::new(p.clone()).unwrap_or_else(|_| {
-            panic!(
-                "Could not parse proxy address, please check the syntax: {}",
-                p
-            )
-        }));
-    };
-    config_asset
+        proxy,
+    }
 }
 
 fn decode_asset_name(table: &Map<String, Value>) -> AssetName {

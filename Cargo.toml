@@ -31,7 +31,7 @@ console = { version = "0.15", default-features = false }
 indicatif = { version = "0.17", default-features = false }
 
 # fetch
-ureq = { version = "2", default-features = false, features = ["json"] }
+ureq = { version = "3", default-features = false, features = ["json"] }
 
 # extract
 zip = { version = "2", default-features = false, features = ["deflate"] }
