@@ -16,7 +16,6 @@ pub struct Archive<'a> {
 
 /// Archive type that specifies how to unpack asset
 enum ArchiveType<'a> {
-    AppImage(&'a str),
     Exe(&'a str),
     Zip(&'a str),
     TarBall(&'a str),
@@ -49,34 +48,22 @@ impl<'a> Archive<'a> {
         tag: &'a str,
     ) -> Option<Archive<'a>> {
         match asset_name.rsplit_once('.') {
-            None | Some((_, "exe")) | Some((_, "so")) => {
-                // un-compressed binary
-                Archive {
-                    archive_path,
-                    tmp_dir,
-                    exe_name,
-                    tag,
-                    archive_type: ArchiveType::Exe(asset_name),
-                }
-                .into()
-            }
-            Some((_, ext)) if ext.len() > 10 => {
-                // un-compressed binary
-                Archive {
-                    archive_path,
-                    tmp_dir,
-                    exe_name,
-                    tag,
-                    archive_type: ArchiveType::Exe(asset_name),
-                }
-                .into()
-            }
-            Some((_, "AppImage")) => Archive {
+            // un-compressed binary
+            None | Some((_, "exe")) | Some((_, "AppImage")) | Some((_, "so")) => Archive {
                 archive_path,
                 tmp_dir,
                 exe_name,
                 tag,
-                archive_type: ArchiveType::AppImage(asset_name),
+                archive_type: ArchiveType::Exe(asset_name),
+            }
+            .into(),
+            // un-compressed binary with some arch-suffix
+            Some((_, ext)) if ext.len() > 10 => Archive {
+                archive_path,
+                tmp_dir,
+                exe_name,
+                tag,
+                archive_type: ArchiveType::Exe(asset_name),
             }
             .into(),
             Some((prefix, "zip")) => Archive {
@@ -87,7 +74,7 @@ impl<'a> Archive<'a> {
                 archive_type: ArchiveType::Zip(prefix),
             }
             .into(),
-            Some((prefix, "xz" | "gz" | "tgz")) => Archive {
+            Some((prefix, "xz" | "txz" | "gz" | "tgz" | "zst")) => Archive {
                 archive_path,
                 tmp_dir,
                 exe_name,
@@ -96,7 +83,7 @@ impl<'a> Archive<'a> {
             }
             .into(),
             _ => {
-                dbg!("unsupported asset format {}", &asset_name);
+                dbg!("unsupported asset format {asset_name}");
                 None
             }
         }
@@ -105,10 +92,7 @@ impl<'a> Archive<'a> {
     /// Unpack archive and return path to the executable tool
     pub fn unpack(&self) -> Result<PathBuf, UnpackError> {
         match self.archive_type {
-            // already .AppImage file: no need to unpack
-            ArchiveType::AppImage(app_image) => Ok(self.tmp_dir.join(app_image)),
-
-            // already .exe file without archive (on Windows): no need to unpack
+            // already executable file without archive: no need to unpack
             ArchiveType::Exe(exe_file) => Ok(self.tmp_dir.join(exe_file)),
 
             // unpack .tar ball
