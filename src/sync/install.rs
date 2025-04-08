@@ -24,10 +24,7 @@ pub struct Installer<'a> {
 impl Installer<'_> {
     /// This functions panics when it can't create a temporary directory
     /// (e.g. not enough disk space?)
-    pub fn mk(
-        store_directory: &Path,
-        sync_progress: SyncProgress,
-    ) -> Installer {
+    pub fn mk(store_directory: &Path, sync_progress: SyncProgress) -> Installer {
         let tmp_dir = TempDir::with_prefix("tool-sync-");
         match tmp_dir {
             Err(e) => {
@@ -42,10 +39,7 @@ impl Installer<'_> {
     }
 
     /// Returns `true` if the installation was successful
-    pub fn install(
-        &self,
-        tool_asset: ToolAsset,
-    ) -> bool {
+    pub fn install(&self, tool_asset: ToolAsset) -> bool {
         let tool_name = &tool_asset.tool_name;
         let tag = &tool_asset.tag;
 
@@ -102,11 +96,7 @@ impl Installer<'_> {
     }
 }
 
-fn copy_file(
-    tool_path: PathBuf,
-    store_directory: &Path,
-    exe_name: &str,
-) -> std::io::Result<()> {
+fn copy_file(tool_path: PathBuf, store_directory: &Path, exe_name: &str) -> std::io::Result<()> {
     let exe_name = mk_exe_name(exe_name);
 
     let mut install_path = PathBuf::new();

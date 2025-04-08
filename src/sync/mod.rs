@@ -18,21 +18,13 @@ use self::prefetch::prefetch;
 use self::progress::SyncProgress;
 use self::progress::ToolPair;
 
-pub fn sync_from_path(
-    config_path: PathBuf,
-    tool: Option<String>,
-    proxy: Option<String>,
-) {
+pub fn sync_from_path(config_path: PathBuf, tool: Option<String>, proxy: Option<String>) {
     toml::with_parsed_file(config_path.clone(), proxy, |config| {
         sync_from_config(config, config_path, tool)
     });
 }
 
-pub fn sync_from_config(
-    mut config: Config,
-    config_path: PathBuf,
-    tool: Option<String>,
-) {
+pub fn sync_from_config(mut config: Config, config_path: PathBuf, tool: Option<String>) {
     if config.tools.is_empty() {
         no_tools_message();
         return;
@@ -71,10 +63,7 @@ For more details, refer to the official documentation:
     );
 }
 
-fn tool_not_in_config_message(
-    tool: &str,
-    path: &Path,
-) {
+fn tool_not_in_config_message(tool: &str, path: &Path) {
     eprintln!(
         r#"The '{}' tool is not listed in the configuration file: {}
 
@@ -88,11 +77,7 @@ installing one of the tools natively supported by 'tool-sync'."#,
 const DONE: Emoji<'_, '_> = Emoji("✨ ", "* ");
 const DIRECTORY: Emoji<'_, '_> = Emoji("📁 ", "* ");
 
-pub fn sync_single_tool(
-    mut config: Config,
-    name: String,
-    asset: ConfigAsset,
-) {
+pub fn sync_single_tool(mut config: Config, name: String, asset: ConfigAsset) {
     config.tools = BTreeMap::from([(name, asset)]);
     sync_from_config_no_check(config);
 }
@@ -130,10 +115,7 @@ pub fn sync_from_config_no_check(config: Config) {
     summary_message(installed_tools, store_directory);
 }
 
-fn summary_message(
-    installed_tools: u64,
-    store_directory: PathBuf,
-) {
+fn summary_message(installed_tools: u64, store_directory: PathBuf) {
     eprintln!(
         "{} Successfully installed {} {}!",
         DONE,

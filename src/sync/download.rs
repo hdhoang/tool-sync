@@ -21,10 +21,7 @@ pub struct DownloadInfo {
 }
 
 impl Downloader<'_> {
-    fn download_asset(
-        &self,
-        tmp_dir: &Path,
-    ) -> Result<PathBuf, Box<dyn Error>> {
+    fn download_asset(&self, tmp_dir: &Path) -> Result<PathBuf, Box<dyn Error>> {
         let mut stream = self.client.get_asset_stream(self.asset)?;
 
         let download_path = tmp_dir.join(&self.asset.name);
@@ -50,10 +47,7 @@ impl Downloader<'_> {
     }
 
     /// Download an asset and return a path of the downloaded artefact
-    pub fn download(
-        &self,
-        tmp_dir: &Path,
-    ) -> Result<DownloadInfo, Box<dyn Error>> {
+    pub fn download(&self, tmp_dir: &Path) -> Result<DownloadInfo, Box<dyn Error>> {
         self.pb_msg.set_message("Fetching info...");
 
         let archive_path = self.download_asset(tmp_dir)?;

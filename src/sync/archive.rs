@@ -29,10 +29,7 @@ pub enum UnpackError {
 }
 
 impl Display for UnpackError {
-    fn fmt(
-        &self,
-        f: &mut Formatter<'_>,
-    ) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             UnpackError::IOError(e) => write!(f, "{}", e),
             UnpackError::ZipError(e) => write!(f, "{}", e),
@@ -141,10 +138,7 @@ impl<'a> Archive<'a> {
     }
 }
 
-fn unpack_tar(
-    tar_path: &PathBuf,
-    tmp_dir: &Path,
-) -> Result<(), std::io::Error> {
+fn unpack_tar(tar_path: &PathBuf, tmp_dir: &Path) -> Result<(), std::io::Error> {
     // unpack tar_path to tmp_dir
     let tar_file = File::open(tar_path)?;
     let tar_decoder = AnyDecoder::new(BufReader::new(tar_file));
@@ -152,10 +146,7 @@ fn unpack_tar(
     archive.unpack(tmp_dir)
 }
 
-fn unpack_zip(
-    zip_path: &PathBuf,
-    tmp_dir: &Path,
-) -> Result<(), UnpackError> {
+fn unpack_zip(zip_path: &PathBuf, tmp_dir: &Path) -> Result<(), UnpackError> {
     let zip_archive_file = File::open(zip_path).map_err(UnpackError::IOError)?;
 
     let mut archive = zip::ZipArchive::new(zip_archive_file).map_err(UnpackError::ZipError)?;
@@ -192,11 +183,7 @@ fn find_path_to_exe(
 }
 
 // List of potential paths where an executable can be inside the archive
-fn exe_paths(
-    exe_name: &str,
-    asset_name: &str,
-    tag: &str,
-) -> Vec<PathBuf> {
+fn exe_paths(exe_name: &str, asset_name: &str, tag: &str) -> Vec<PathBuf> {
     let exe_name = mk_exe_name(exe_name);
     let numeric_tag = tag.trim_start_matches('v');
 

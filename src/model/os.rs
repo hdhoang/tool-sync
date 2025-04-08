@@ -23,10 +23,7 @@ pub fn get_current_os() -> OS {
 }
 
 impl Display for OS {
-    fn fmt(
-        &self,
-        f: &mut Formatter<'_>,
-    ) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Windows => {
                 write!(f, "windows")
