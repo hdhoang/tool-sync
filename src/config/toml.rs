@@ -247,7 +247,7 @@ mod tests {
         });
         assert_eq!(
             String::from(
-                "[Decode Error] unexpected value type 'store_directory=32': expected `string`, found `integer`"
+                "[Decode Error] unexpected value type 'store_directory=Integer(32)': expected `string`, found `integer`"
             ),
             toml_error.to_string()
         );

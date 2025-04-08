@@ -12,7 +12,8 @@ pub enum Tool {
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum ToolError {
-    /// Probably a known tool but specified differently. E.g. 'rg' instead of 'ripgrep'
+    /// Probably a known tool but specified differently. E.g. 'rg' instead of
+    /// 'ripgrep'
     Suggestion { perhaps: String },
 
     /// Not enough configuration to install the tool

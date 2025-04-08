@@ -1,4 +1,5 @@
-//! This file contains all logic revolving the generation of the shell completion script
+//! This file contains all logic revolving the generation of the shell
+//! completion script
 
 use clap_complete::Shell;
 
