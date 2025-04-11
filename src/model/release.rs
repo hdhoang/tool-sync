@@ -1,16 +1,15 @@
-use serde::Deserialize;
 use std::fmt::{Display, Formatter, Write};
 
 use crate::infra::err;
 use crate::model::os::get_current_os;
 
-#[derive(Deserialize, Debug)]
+#[derive(serde::Deserialize, Debug)]
 pub struct Release {
     pub tag_name: String,
     pub assets: Vec<Asset>,
 }
 
-#[derive(Deserialize, Debug, Clone, Eq, PartialEq)]
+#[derive(serde::Deserialize, Debug, Clone, Eq, PartialEq)]
 pub struct Asset {
     pub id: u32,
     pub name: String,

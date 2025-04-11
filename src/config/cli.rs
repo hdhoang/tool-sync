@@ -1,8 +1,6 @@
 use std::path::PathBuf;
 
-use clap::{Parser, Subcommand};
-
-#[derive(Parser, Debug)]
+#[derive(clap::Parser, Debug)]
 #[command(author="Dmitrii Kovanikov <kovanikov@gmail.com>", version, about="A CLI tool to manage other CLI tools", long_about = None)]
 pub struct Cli {
     /// Set a path to a configuration file (default: $HOME/.tool.toml)
@@ -17,7 +15,7 @@ pub struct Cli {
     pub command: Command,
 }
 
-#[derive(Subcommand, Debug)]
+#[derive(clap::Subcommand, Debug)]
 pub enum Command {
     /// Generate shell completion scripts for GitHub CLI commands.
     ///
