@@ -21,7 +21,12 @@ path = "src/main.rs"
 [dependencies]
 # config
 toml = { version = "0.8", default-features = false, features = ["parse"] }
-serde = { version = "1", default-features = false, features = ["derive"] }
+
+# serde
+facet-derive = { version = "0.1.15", default-features = false, path = "..//facet/facet-derive"} #, branch = "core-both" }
+facet-pretty = { version = "0.1.9", default-features = false, path = "..//facet/facet-pretty"} #, branch = "core-both" }
+facet = { version = "0.1.16", default-features = false, path = "..//facet/facet"} #, branch = "core-both" }
+facet-json-read = { version = "0.1.12", default-features = false, path = "..//facet/facet-json-read"} #, branch = "core-both" }
 
 # UX
 clap = { version = "4", default-features = false, features = ["derive"] }

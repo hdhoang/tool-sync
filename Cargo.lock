@@ -312,6 +312,75 @@ dependencies = [
 ]
 
 [[package]]
+name = "facet-core"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92fc714d6d825b46e0fb609505cfefa0762f393e34e5d82c653535e1be529f41"
+dependencies = [
+ "bitflags",
+ "impls",
+]
+
+[[package]]
+name = "facet-derive"
+version = "0.1.15"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b72b266089b88cf7ebd25008e2d262f1ce8b1c9404eca9cac42fd9242ed87743"
+dependencies = [
+ "facet-core",
+ "unsynn",
+]
+
+[[package]]
+name = "facet-json"
+version = "0.1.13"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9e2c62b1895283f5c7eed7354d5ce38b7e5c7cd7df2a9ccbde2ac5391299dc5"
+dependencies = [
+ "facet-json-read",
+]
+
+[[package]]
+name = "facet-json-read"
+version = "0.1.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "69c83c4cf71529c3f5f68698dad726502a25725abdc27a0fb871d528ad5c7bbb"
+dependencies = [
+ "facet-core",
+ "facet-poke",
+ "log",
+]
+
+[[package]]
+name = "facet-peek"
+version = "0.2.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "95f3f5380b3facf0b2e3e86257218778ef17f1acd7ac3d316efa6ef6dc087504"
+dependencies = [
+ "facet-core",
+]
+
+[[package]]
+name = "facet-poke"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a5dfa59589f8d2642837c5daafc0fa2a1dab2ad3b61c25f5df2361b6c71f92eb"
+dependencies = [
+ "facet-core",
+ "facet-peek",
+]
+
+[[package]]
+name = "facet-pretty"
+version = "0.1.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cdcfc1d85470a838ee30c4125d9dddc88bbd96e6c8599fc057b9cc6910c8a34f"
+dependencies = [
+ "facet-core",
+ "facet-peek",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -534,6 +603,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "impls"
+version = "1.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7a46645bbd70538861a90d0f26c31537cdf1e44aae99a794fb75a664b70951bc"
+
+[[package]]
 name = "indexmap"
 version = "2.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -665,6 +740,12 @@ checksum = "3be647b768db090acb35d5ec5db2b0e1f1de11133ca123b9eacf5137868f892a"
 dependencies = [
  "adler2",
 ]
+
+[[package]]
+name = "mutants"
+version = "0.0.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc0287524726960e07b119cebd01678f852f147742ae0d925e6a520dca956126"
 
 [[package]]
 name = "num-conv"
@@ -965,6 +1046,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "shadow_counted"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "41cd78bcc9026f6fc699f717588c4f757e87758d33464ede841ad42eee49a5b2"
+
+[[package]]
 name = "shellexpand"
 version = "3.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1171,6 +1258,9 @@ dependencies = [
  "console",
  "deko",
  "dirs 6.0.0",
+ "facet-derive",
+ "facet-json",
+ "facet-pretty",
  "indicatif",
  "serde",
  "shellexpand",
@@ -1186,6 +1276,17 @@ name = "unicode-ident"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a5f39404a5da50712a4c1eecf25e90dd62b613502b7e925fd4e4d19b5c96512"
+
+[[package]]
+name = "unsynn"
+version = "0.0.25"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "45b8949e2e0d516407a99e232f0040c7d433f32d522edabcb27ed27f7d10c47c"
+dependencies = [
+ "mutants",
+ "proc-macro2",
+ "shadow_counted",
+]
 
 [[package]]
 name = "untrusted"
