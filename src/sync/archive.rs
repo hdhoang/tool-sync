@@ -49,7 +49,11 @@ impl<'a> Archive<'a> {
     ) -> Option<Archive<'a>> {
         match asset_name.rsplit_once('.') {
             // un-compressed binary
-            None | Some((_, "exe")) | Some((_, "AppImage")) | Some((_, "so")) => Archive {
+            None
+            | Some((_, "exe"))
+            | Some((_, "AppImage"))
+            | Some((_, "ttf"))
+            | Some((_, "so")) => Archive {
                 archive_path,
                 tmp_dir,
                 exe_name,
