@@ -24,7 +24,7 @@ enum ArchiveType<'a> {
 pub enum UnpackError {
     IOError(std::io::Error),
     ZipError(zip::result::ZipError),
-    ExeNotFound(String),
+    ExeNotFound(String, String),
 }
 
 impl Display for UnpackError {
@@ -32,8 +32,8 @@ impl Display for UnpackError {
         match self {
             UnpackError::IOError(e) => write!(f, "{}", e),
             UnpackError::ZipError(e) => write!(f, "{}", e),
-            UnpackError::ExeNotFound(archive_name) => {
-                write!(f, "Can't find executable in archive: {}", archive_name)
+            UnpackError::ExeNotFound(exe_name, archive_name) => {
+                write!(f, "Can't find {exe_name} in archive: {archive_name}")
             }
         }
     }
@@ -160,10 +160,10 @@ fn find_path_to_exe(
         }
     }
 
-    Err(UnpackError::ExeNotFound(format!(
-        "{}",
-        archive_path.display()
-    )))
+    Err(UnpackError::ExeNotFound(
+        exe_name.to_string(),
+        format!("{}", archive_path.display()),
+    ))
 }
 
 // List of potential paths where an executable can be inside the archive
