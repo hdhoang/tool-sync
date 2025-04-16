@@ -45,9 +45,7 @@ impl Client {
             .header("user-agent", "chshersh/tool-sync-0.2.0");
         let req = add_auth_header(req);
         let json = req.call()?.into_body().read_to_string()?;
-        let release: Release = facet_json_read::from_str(&json)
-            .map_err(|jpewc| dbg!(jpewc))
-            .map_err(|jpewc| jpewc.strip_context())?;
+        let release: Release = facet_json::from_str(&json).map_err(|jpewc| todo!("{jpewc}"))?;
         Ok(release)
     }
 

@@ -23,10 +23,11 @@ path = "src/main.rs"
 toml = { version = "0.8", default-features = false, features = ["parse"] }
 
 # serde
-facet-derive = { version = "0.1.15", default-features = false, path = "..//facet/facet-derive"} #, branch = "core-both" }
-facet-pretty = { version = "0.1.9", default-features = false, path = "..//facet/facet-pretty"} #, branch = "core-both" }
-facet = { version = "0.1.16", default-features = false, path = "..//facet/facet"} #, branch = "core-both" }
-facet-json-read = { version = "0.1.12", default-features = false, path = "..//facet/facet-json-read"} #, branch = "core-both" }
+facet = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
+facet-derive = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
+facet-pretty = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
+facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
+facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["alloc"] }
 
 # UX
 clap = { version = "4", default-features = false, features = ["derive"] }
@@ -36,7 +37,7 @@ console = { version = "0.15", default-features = false }
 indicatif = { version = "0.17", default-features = false }
 
 # fetch
-ureq = { version = "3", default-features = false, features = ["gzip", "json", "platform-verifier", "rustls"] }
+ureq = { version = "3", default-features = false, features = ["gzip", "platform-verifier", "rustls"] }
 
 # extract
 zip = { version = "2", default-features = false, features = ["deflate"] }
