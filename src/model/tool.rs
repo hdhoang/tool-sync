@@ -33,7 +33,8 @@ impl Display for ToolError {
 
 /// Determines whether to download the latest version of a tool or a
 /// specific version of it.
-#[derive(Debug, PartialEq, Eq)]
+#[repr(u8)]
+#[derive(Debug, PartialEq, Eq, facet::Facet)]
 pub enum ToolInfoTag {
     /// Download latest
     Latest,
@@ -69,7 +70,7 @@ impl ToolInfoTag {
 }
 
 /// All info about installing a tool from GitHub releases
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, facet::Facet)]
 pub struct ToolInfo {
     /// GitHub repository author
     pub owner: String,

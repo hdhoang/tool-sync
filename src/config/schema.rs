@@ -10,7 +10,7 @@ use crate::model::tool::{ToolInfo, ToolInfoTag};
 /// info about installing each particular tool.
 ///
 /// This data type is parsed from the TOML configuration file.
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, facet::Facet)]
 pub struct Config {
     /// Directory to store all locally downloaded tools
     pub store_directory: String,
@@ -21,7 +21,7 @@ pub struct Config {
 }
 
 /// Additional details, telling how to download a tool
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, facet::Facet)]
 pub struct ConfigAsset {
     /// GitHub repository author
     pub owner: Option<String>,
@@ -39,9 +39,9 @@ pub struct ConfigAsset {
 
     /// Name of the specific asset to download
     pub asset_name: AssetName,
-
     /// Proxy which will get used for all communication
-    pub proxy: Option<ureq::Proxy>,
+    #[facet(skip)]
+    pub proxy: Option<String>,
 }
 
 impl From<ToolInfo> for ConfigAsset {
@@ -57,7 +57,6 @@ impl From<ToolInfo> for ConfigAsset {
             exe_name: Some(tool_info.exe_name),
             tag,
             asset_name: tool_info.asset_name,
-
             // Hardcoded tools don't supply their own proxy automatically
             proxy: None,
         }

@@ -1,7 +1,7 @@
-use crate::model::os::{OS, get_current_os};
+use crate::model::os::{get_current_os, OS};
 
 /// Part of the name for each OS to identify proper asset
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, facet::Facet)]
 pub struct AssetName {
     pub linux: Option<String>,
     pub macos: Option<String>,

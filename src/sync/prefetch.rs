@@ -1,4 +1,4 @@
-use console::{Emoji, style};
+use console::{style, Emoji};
 use indicatif::{HumanBytes, ProgressBar, ProgressStyle};
 
 use std::collections::BTreeMap;
@@ -113,7 +113,7 @@ fn prefetch_tool(
     config_asset: &ConfigAsset,
     prefetch_progress: &PrefetchProgress,
     current_index: usize,
-    proxy: Option<ureq::Proxy>,
+    proxy: Option<String>,
 ) -> Option<ToolAsset> {
     // indexes start with 0 so we add 1 to calculate already fetched tools
     let already_completed = current_index + 1;

@@ -11,7 +11,7 @@ pub struct Client {
     pub repo: String,
     pub version: String,
 
-    pub proxy: Option<ureq::Proxy>,
+    pub proxy: Option<String>,
 }
 
 impl Client {
@@ -36,7 +36,7 @@ impl Client {
     pub fn fetch_release_info(&self) -> Result<Release, Box<dyn Error>> {
         let release_url = self.release_url();
         let agent: ureq::Agent = ureq::Agent::config_builder()
-            .proxy(self.proxy.clone())
+            // .proxy(self.proxy.clone())
             .build()
             .into();
         let req = agent
@@ -55,7 +55,7 @@ impl Client {
     ) -> Result<Box<dyn Read + Send + Sync>, Box<ureq::Error>> {
         let asset_url = self.asset_url(asset.id);
         let agent: ureq::Agent = ureq::Agent::config_builder()
-            .proxy(self.proxy.clone())
+            //            .proxy(self.proxy.clone())
             .build()
             .into();
         let req = agent
