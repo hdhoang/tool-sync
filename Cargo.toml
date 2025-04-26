@@ -23,8 +23,8 @@ path = "src/main.rs"
 facet = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
 facet-derive = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
 facet-pretty = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
-facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
-facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["alloc"] }
+facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["std", "rich-diagnostics"] }
+facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["std", "rich-diagnostics"] }
 
 # UX
 clap = { version = "4", default-features = false, features = ["derive"] }

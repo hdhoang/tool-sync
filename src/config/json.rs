@@ -27,5 +27,5 @@ fn parse_config(
     _proxy: Option<String>,
 ) -> Result<Config, Box<dyn core::error::Error>> {
     let contents = fs::read_to_string(config_path)?;
-    Ok(facet_toml::from_str(&contents).map_err(|e| todo!("{e}"))?)
+    Ok(facet_json::from_str(&contents).map_err(|jpewc| todo!("{jpewc}"))?)
 }

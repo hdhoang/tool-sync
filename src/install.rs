@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use crate::config::schema::Config;
-use crate::config::toml;
+use crate::config::{json, toml};
 use crate::infra::err;
 use crate::sync;
 use crate::sync::db::{fmt_tool_names_info, lookup_tool};

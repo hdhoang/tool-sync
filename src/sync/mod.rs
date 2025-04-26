@@ -11,7 +11,7 @@ use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
 
 use crate::config::schema::{Config, ConfigAsset};
-use crate::config::toml;
+use crate::config::{json, toml};
 
 use self::install::Installer;
 use self::prefetch::prefetch;
