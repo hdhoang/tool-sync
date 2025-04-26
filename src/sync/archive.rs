@@ -53,6 +53,7 @@ impl<'a> Archive<'a> {
             | Some((_, "exe"))
             | Some((_, "AppImage"))
             | Some((_, "ttf"))
+            | Some((_, "otc"))
             | Some((_, "so")) => Archive {
                 archive_path,
                 tmp_dir,
