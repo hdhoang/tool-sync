@@ -34,8 +34,7 @@ impl PrefetchProgress {
             self.pb.finish()
         } else {
             self.pb.set_message(format!(
-                "Fetching info about {} tools (this may take a few seconds)...",
-                remaining_count
+                "Fetching info about {remaining_count} tools (this may take a few seconds)..."
             ))
         }
     }
@@ -43,22 +42,19 @@ impl PrefetchProgress {
     /// This method can take in any type that implements the [`Display`] trait
     fn expected_err_msg<Message: Display>(&self, tool_name: &str, msg: Message) {
         let tool = format!("{}", style(tool_name).cyan().bold());
-        self.pb.println(format!("{} {} {}", ERROR, tool, msg))
+        self.pb.println(format!("{ERROR} {tool} {msg}"))
     }
 
     /// This method can take in any type that implements the [`Display`] trait
     fn unexpected_err_msg<Message: Display>(&self, tool_name: &str, msg: Message) {
         let tool = format!("{}", style(tool_name).cyan().bold());
         let err_msg = format!(
-            r#"{emoji} {tool} {msg}
+            r#"{ERROR} {tool} {msg}
 
 If you think you see this error by a 'tool-sync' mistake,
 don't hesitate to open an issue:
 
     * https://github.com/chshersh/tool-sync/issues/new"#,
-            emoji = ERROR,
-            tool = tool,
-            msg = msg,
         );
 
         self.pb.println(err_msg);
@@ -99,11 +95,7 @@ pub fn prefetch(tools: BTreeMap<String, ConfigAsset>) -> Vec<ToolAsset> {
 
     let estimated_download_size: u64 = tool_assets.iter().map(|ta| ta.asset.size).sum();
     let size = HumanBytes(estimated_download_size);
-    eprintln!(
-        "{emoji} Estimated total download size: {size}",
-        emoji = PACKAGE,
-        size = size
-    );
+    eprintln!("{PACKAGE} Estimated total download size: {size}");
 
     tool_assets
 }
@@ -187,5 +179,5 @@ fn create_prefetch_progress_bar() -> ProgressBar {
 
     ProgressBar::new(100)
         .with_style(message_style)
-        .with_prefix(format!("{}", PREFETCH))
+        .with_prefix(format!("{PREFETCH}"))
 }

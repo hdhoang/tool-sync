@@ -24,7 +24,7 @@ impl Display for ToolError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             ToolError::Suggestion { perhaps } => {
-                write!(f, "[suggestion] Perhaps you meant: '{}'?", perhaps)
+                write!(f, "[suggestion] Perhaps you meant: '{perhaps}'?")
             }
             ToolError::Invalid => write!(f, "[error] Not detailed enough configuration"),
         }
@@ -63,7 +63,7 @@ impl ToolInfoTag {
     pub fn to_str_version(&self) -> String {
         match self {
             Self::Latest => LATEST_VERSION.to_owned(),
-            Self::Specific(version) => format!("tags/{}", version),
+            Self::Specific(version) => format!("tags/{version}"),
         }
     }
 }

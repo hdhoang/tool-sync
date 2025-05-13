@@ -31,9 +31,9 @@ pub enum DecodeError {
 impl Display for TomlError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            TomlError::IO(e) => write!(f, "[IO Error] {}", e),
-            TomlError::Parse(e) => write!(f, "[Parsing Error] {}", e),
-            TomlError::Decode(e) => write!(f, "[Decode Error] {}", e),
+            TomlError::IO(e) => write!(f, "[IO Error] {e}"),
+            TomlError::Parse(e) => write!(f, "[Parsing Error] {e}"),
+            TomlError::Decode(e) => write!(f, "[Decode Error] {e}"),
         }
     }
 }
@@ -42,7 +42,7 @@ impl Display for DecodeError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             DecodeError::MissingKey { key } => {
-                write!(f, "The key '{}' is missing (a typo or not specified?)", key)
+                write!(f, "The key '{key}' is missing (a typo or not specified?)")
             }
             DecodeError::InvalidType {
                 key,
@@ -78,7 +78,7 @@ pub fn with_parsed_file<F: FnOnce(Config)>(
 }
 
 fn parse_file(config_path: &PathBuf, proxy: Option<String>) -> Result<Config, TomlError> {
-    let contents = fs::read_to_string(config_path).map_err(|e| TomlError::IO(format!("{}", e)))?;
+    let contents = fs::read_to_string(config_path).map_err(|e| TomlError::IO(format!("{e}")))?;
 
     parse_string(&contents, proxy)
 }

@@ -14,10 +14,7 @@ pub fn rename_completion_suggestion(shell: &Shell, bin_name: &str) -> Result<(),
         _ => return Err(RenameError::NewShellFound(shell.to_owned())),
     };
 
-    eprintln!(
-        "\n\n############################\n{}\n############################",
-        completion_str
-    );
+    eprintln!("\n\n############################\n{completion_str}\n############################");
 
     Ok(())
 }
@@ -29,7 +26,7 @@ pub enum RenameError {
 impl std::fmt::Display for RenameError {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
         match self {
-            RenameError::NewShellFound(shell) => write!(f, "[Rename error]: {}", shell),
+            RenameError::NewShellFound(shell) => write!(f, "[Rename error]: {shell}"),
         }
     }
 }
