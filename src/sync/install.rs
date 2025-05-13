@@ -28,7 +28,7 @@ impl Installer<'_> {
         let tmp_dir = TempDir::with_prefix("tool-sync-");
         match tmp_dir {
             Err(e) => {
-                err::abort_suggest_issue(format!("Error creating temporary directory: {}", e));
+                err::abort_suggest_issue(format!("Error creating temporary directory: {e}"));
             }
             Ok(tmp_dir) => Installer {
                 store_directory,
@@ -52,7 +52,7 @@ impl Installer<'_> {
             }
             Err(e) => {
                 self.sync_progress
-                    .failure(pb_msg, tool_name, tag, format!("[error] {}", e));
+                    .failure(pb_msg, tool_name, tag, format!("[error] {e}"));
                 false
             }
         }

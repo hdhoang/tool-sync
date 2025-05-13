@@ -57,7 +57,7 @@ impl SyncProgress {
             tag_width = self.max_tag_size,
         );
 
-        format!("{}{}", emoji, aligned_tool)
+        format!("{emoji}{aligned_tool}")
     }
 
     pub fn create_message_bar(&self, tool_name: &str, tag: &str) -> ProgressBar {

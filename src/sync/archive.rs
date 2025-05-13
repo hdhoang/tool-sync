@@ -30,8 +30,8 @@ pub enum UnpackError {
 impl Display for UnpackError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            UnpackError::IOError(e) => write!(f, "{}", e),
-            UnpackError::ZipError(e) => write!(f, "{}", e),
+            UnpackError::IOError(e) => write!(f, "{e}"),
+            UnpackError::ZipError(e) => write!(f, "{e}"),
             UnpackError::ExeNotFound(exe_name, archive_name) => {
                 write!(f, "Can't find {exe_name} in archive: {archive_name}")
             }
@@ -193,13 +193,13 @@ fn exe_paths(exe_name: &str, asset_name: &str, tag: &str) -> Vec<PathBuf> {
             .iter()
             .collect(),
         [
-            &format!("{exe_name}-{}-x86_64", numeric_tag),
+            &format!("{exe_name}-{numeric_tag}-x86_64"),
             "usr/bin",
             &exe_name,
         ]
         .iter()
         .collect(),
-        [&format!("{exe_name}-{}", numeric_tag), &exe_name]
+        [&format!("{exe_name}-{numeric_tag}"), &exe_name]
             .iter()
             .collect(),
     ]
