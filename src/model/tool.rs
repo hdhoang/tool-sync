@@ -42,9 +42,11 @@ pub enum ToolInfoTag {
 }
 
 const LATEST_VERSION: &str = "latest";
-const COMPANION_EXTENSIONS: [&str; 14] = [
+const COMPANION_EXTENSIONS: [&str; 16] = [
+    ".DIGEST",
     ".asc",
     ".b3",
+    ".b3sum",
     ".md5",
     ".md5sum",
     ".sbom",
@@ -95,12 +97,12 @@ impl ToolInfo {
             Some(asset_name) => {
                 let mut filtered_assets = assets
                     .iter()
+                    .filter(|&asset| asset.name.contains(asset_name))
                     .filter(|&asset| {
                         !COMPANION_EXTENSIONS
                             .iter()
                             .any(|ext| asset.name.ends_with(ext))
                     })
-                    .filter(|&asset| asset.name.contains(asset_name))
                     .map(|asset| asset.to_owned())
                     .collect::<Vec<Asset>>();
                 match filtered_assets.len() {
