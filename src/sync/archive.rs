@@ -189,6 +189,13 @@ fn exe_paths(exe_name: &str, asset_name: &str, tag: &str) -> Vec<PathBuf> {
         ["bin", &exe_name].iter().collect(),
         [asset_name, "bin", &exe_name].iter().collect(),
         [&format!("{exe_name}-{tag}"), &exe_name].iter().collect(),
+        [
+            &format!("{exe_name}-x86_64-unknown-linux-gnu"),
+            "bin",
+            &exe_name,
+        ]
+        .iter()
+        .collect(),
         [&format!("{exe_name}-{tag}-x86_64"), "usr/bin", &exe_name]
             .iter()
             .collect(),
