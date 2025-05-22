@@ -27,7 +27,7 @@ facet = { git = "https://github.com/facet-rs/facet", branch = "main", default-fe
 facet-derive = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
 facet-pretty = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
 facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["rich-diagnostics"] }
-facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["rich-diagnostics"] }
+facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["std", "rich-diagnostics"] }
 
 # UX
 clap = { version = "4", default-features = false, features = ["derive"] }
@@ -40,7 +40,7 @@ indicatif = { version = "0.17", default-features = false }
 ureq = { version = "3", default-features = false, features = ["gzip", "platform-verifier", "rustls"] }
 
 # extract
-zip = { version = "2", default-features = false, features = ["deflate"] }
+zip = { version = "4", default-features = false, features = ["deflate"] }
 deko = { version = "0", default-features = false, features = ["flate2", "xz"] }
 tar = { version = "0.4", default-features = false }
 
