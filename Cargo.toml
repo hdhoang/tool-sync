@@ -24,16 +24,16 @@ toml = { version = "0.8", default-features = false, features = ["parse"] }
 
 # serde
 facet = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
-facet-derive = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
 facet-pretty = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
 facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["rich-diagnostics"] }
-facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["std", "rich-diagnostics"] }
+facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["rich-diagnostics"] }
 
 # UX
+facet-args = { git = "https://github.com/facet-rs/facet", branch = "main", version = "0.19.17", default-features = false, features = ["rich-diagnostics"] }
 clap = { version = "4", default-features = false, features = ["derive"] }
 clap_complete = { version = "4", default-features = false }
 
-console = { version = "0.15", default-features = false }
+console = { version = "0.16", default-features = false }
 indicatif = { version = "0.17", default-features = false }
 
 # fetch
