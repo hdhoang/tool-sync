@@ -1,6 +1,6 @@
 [package]
 name = "tool-sync"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Dmitrii Kovanikov <kovanikov@gmail.com>"]
 license = "MPL-2.0"
 description = """
@@ -30,11 +30,9 @@ facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", defau
 
 # UX
 facet-args = { git = "https://github.com/facet-rs/facet", branch = "main", version = "0.19.17", default-features = false, features = ["rich-diagnostics"] }
-clap = { version = "4", default-features = false, features = ["derive"] }
-clap_complete = { version = "4", default-features = false }
 
 console = { version = "0.16", default-features = false }
-indicatif = { version = "0.17", default-features = false }
+indicatif = { version = "0.18", default-features = false }
 
 # fetch
 ureq = { version = "3", default-features = false, features = ["gzip", "platform-verifier", "rustls"] }
