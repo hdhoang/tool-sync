@@ -24,7 +24,7 @@ pub struct Installer<'a> {
 impl Installer<'_> {
     /// This functions panics when it can't create a temporary directory
     /// (e.g. not enough disk space?)
-    pub fn mk(store_directory: &Path, sync_progress: SyncProgress) -> Installer {
+    pub fn mk(store_directory: &Path, sync_progress: SyncProgress) -> Installer<'_> {
         let tmp_dir = TempDir::with_prefix("tool-sync-");
         match tmp_dir {
             Err(e) => {
