@@ -1,54 +1,33 @@
-mod completion;
 mod config;
 mod infra;
 mod install;
 mod model;
 mod sync;
 
-use clap::{CommandFactory, Parser};
-use clap_complete::generate;
-
 use std::path::PathBuf;
 
-use crate::completion::rename_completion_suggestion;
-use crate::config::cli::{Cli, Command};
+use crate::config::cli::{Args, Command};
 use crate::infra::err;
 
 const DEFAULT_CONFIG_PATH: &str = ".tool.toml";
 
 pub fn run() {
-    let cli = Cli::parse();
+    let args: Args = facet_args::from_std_args().expect("parsable args");
 
-    // TODO: this is redundant for the `default-config` command
-    // See: https://github.com/chshersh/tool-sync/issues/75
-    let config_path = resolve_config_path(cli.config);
+    //     // TODO: this is redundant for the `default-config` command
+    //     // See: https://github.com/chshersh/tool-sync/issues/75
+    let config_path = resolve_config_path(args.config_path);
 
-    match cli.command {
-        Command::Completion { shell, rename } => {
-            generate_completion(shell, rename);
-        }
+    match args.command {
         Command::DefaultConfig { path } => match path {
             true => print_default_path(),
             false => config::template::generate_default_config(),
         },
-        Command::Sync { tool } => sync::sync_from_path(config_path, tool, cli.proxy),
-        Command::Install { name } => install::install(config_path, name, cli.proxy),
+        Command::Sync => sync::sync_from_path(config_path, args.tool, args.proxy),
+        Command::Install => {
+            install::install(config_path, args.tool.expect("tool name"), args.proxy)
+        }
     }
-}
-
-fn generate_completion(shell: clap_complete::Shell, rename: Option<String>) {
-    let mut cmd: clap::Command = Cli::command();
-    match rename {
-        Some(cmd_name) => {
-            generate(shell, &mut cmd, &cmd_name, &mut std::io::stdout());
-            rename_completion_suggestion(&shell, &cmd_name)
-                .unwrap_or_else(|e| err::abort_suggest_issue(e));
-        }
-        None => {
-            let cmd_name: String = cmd.get_name().into();
-            generate(shell, &mut cmd, cmd_name, &mut std::io::stdout());
-        }
-    };
 }
 
 fn resolve_config_path(config_path: Option<PathBuf>) -> PathBuf {
