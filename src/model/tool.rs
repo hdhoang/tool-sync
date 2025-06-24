@@ -42,13 +42,15 @@ pub enum ToolInfoTag {
 }
 
 const LATEST_VERSION: &str = "latest";
-const COMPANION_EXTENSIONS: [&str; 16] = [
+const COMPANION_EXTENSIONS: [&str; 18] = [
     ".DIGEST",
     ".asc",
     ".b3",
     ".b3sum",
+    ".gpgsig",
     ".md5",
     ".md5sum",
+    ".pem",
     ".sbom",
     ".sbom.json",
     ".sha1",
