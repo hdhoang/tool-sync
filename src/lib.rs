@@ -14,9 +14,9 @@ const DEFAULT_CONFIG_PATH: &str = ".tool.toml";
 pub fn run() {
     let args: Args = facet_args::from_std_args().expect("parsable args");
 
-    //     // TODO: this is redundant for the `default-config` command
-    //     // See: https://github.com/chshersh/tool-sync/issues/75
-    let config_path = resolve_config_path(args.config_path);
+    // TODO: this is redundant for the `default-config` command
+    // See: https://github.com/chshersh/tool-sync/issues/75
+    let config_path = resolve_config_path(args.config);
 
     match args.command {
         Command::DefaultConfig { path } => match path {
