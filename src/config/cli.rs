@@ -4,7 +4,7 @@ use std::path::PathBuf;
 // #[command(author="Dmitrii Kovanikov <kovanikov@gmail.com>", version, about="A CLI tool to manage other CLI tools", long_about = None)]
 pub(crate) struct Args {
     #[facet(named, short = 'c', default=None)]
-    pub config_path: Option<PathBuf>,
+    pub config: Option<PathBuf>,
     #[facet(named, short = 'p', default=None)]
     pub proxy: Option<String>,
     #[facet(positional)]
@@ -15,7 +15,7 @@ pub(crate) struct Args {
 
 #[repr(u8)]
 #[derive(facet::Facet)]
-#[facet(rename_all = "snake_case")]
+#[facet(rename_all = "kebab-case")]
 #[allow(unused)] // facet renamed
 pub enum Command {
     /// Print a default .tool.toml configuration to std out
