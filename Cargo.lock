@@ -65,9 +65,9 @@ checksum = "d71b6127be86fdcfddb610f7182ac57211d4b18a3e9c82eb2d17662f2227ad6a"
 
 [[package]]
 name = "cc"
-version = "1.2.27"
+version = "1.2.30"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d487aa071b5f64da6f19a3e848e3578944b726ee5a4854b82172f02aa876bfdc"
+checksum = "deec109607ca693028562ed836a5f1c4b8bd77755c4e132fc5ce11b0b6211ae7"
 dependencies = [
  "shlex",
 ]
@@ -124,9 +124,9 @@ checksum = "773648b94d0e5d620f64f280777445740e61fe701025087ec8b57f45c791888b"
 
 [[package]]
 name = "crc32fast"
-version = "1.4.2"
+version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a97769d94ddab943e4510d138150169a2758b5ef3eb191a9ee688de3e23ef7b3"
+checksum = "9481c1c90cbf2ac953f07c8d4a58aa3945c425b7185c9154d67a65e4230da511"
 dependencies = [
  "cfg-if",
 ]
@@ -197,22 +197,24 @@ dependencies = [
 
 [[package]]
 name = "facet"
-version = "0.27.16"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3290e0be77e9eeca366489c3b4010764dc897a83e5936a93857c3937f47a57aa"
 dependencies = [
- "facet-core",
+ "facet-core 0.28.0",
  "facet-macros",
  "static_assertions",
 ]
 
 [[package]]
 name = "facet-args"
-version = "0.19.18"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eac00b50796aa334db9b6b660a24b98b36fb941fb9677d5391a611e3e35e4f31"
 dependencies = [
  "ariadne",
- "facet-core",
- "facet-reflect",
+ "facet-core 0.28.0",
+ "facet-reflect 0.28.0",
  "log",
  "owo-colors",
 ]
@@ -220,7 +222,18 @@ dependencies = [
 [[package]]
 name = "facet-core"
 version = "0.27.16"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bc0dfc311334e2fad887baaebdc3773c05bbbddc286bef7c9c87cfb3fb4235fb"
+dependencies = [
+ "bitflags",
+ "impls",
+]
+
+[[package]]
+name = "facet-core"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8643770dc61323e6ae5620f336f4c4fc283a6bf39e6701fed32efa747fba5a6a"
 dependencies = [
  "bitflags",
  "impls",
@@ -228,25 +241,27 @@ dependencies = [
 
 [[package]]
 name = "facet-deserialize"
-version = "0.24.22"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "354d1bd711910e6b470a4468f5e61e2ca29346f83c701d624cf14b8d173d76b6"
 dependencies = [
  "ariadne",
- "facet-core",
- "facet-reflect",
+ "facet-core 0.28.0",
+ "facet-reflect 0.28.0",
  "log",
  "owo-colors",
 ]
 
 [[package]]
 name = "facet-json"
-version = "0.24.18"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "47f738c64eb5182e947a27c5743e0edf11b201328a1646aee46615991e6b331b"
 dependencies = [
- "facet-core",
+ "facet-core 0.28.0",
  "facet-deserialize",
- "facet-reflect",
- "facet-serialize",
+ "facet-reflect 0.28.0",
+ "facet-serialize 0.28.0",
  "itoa",
  "lexical-parse-float",
  "lexical-parse-integer",
@@ -256,17 +271,19 @@ dependencies = [
 
 [[package]]
 name = "facet-macros"
-version = "0.27.16"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7eb526288148251e984f3a9ab3cef5191ca1da34a45fb5c548781e7053148e19"
 dependencies = [
- "facet-core",
+ "facet-core 0.28.0",
  "facet-macros-emit",
 ]
 
 [[package]]
 name = "facet-macros-emit"
-version = "0.27.16"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "52619b4834e81068fd915795c297e52f894a18742581627568d451e39dd1c906"
 dependencies = [
  "facet-macros-parse",
  "quote",
@@ -274,8 +291,9 @@ dependencies = [
 
 [[package]]
 name = "facet-macros-parse"
-version = "0.27.16"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6097c15775794dd66eb69cd4614be654877e3e6e4a93ca0d0440236c1798f0b"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -284,42 +302,68 @@ dependencies = [
 
 [[package]]
 name = "facet-pretty"
-version = "0.23.24"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "67c4075c925ecdba56618db8e2e103ed33388067f18fb40ad27b7105ac559c6e"
 dependencies = [
- "facet-core",
- "facet-reflect",
+ "facet-core 0.28.0",
+ "facet-reflect 0.28.0",
 ]
 
 [[package]]
 name = "facet-reflect"
 version = "0.27.16"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "61652b0cd54648b83633b74819a6156b77013e0d0695cc70a6566e75870f6c27"
 dependencies = [
  "bitflags",
- "facet-core",
+ "facet-core 0.27.16",
+ "owo-colors",
+]
+
+[[package]]
+name = "facet-reflect"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1d24ca6fb9db79b26cb5e37d744591d710e05922dbca7c53505113151b50aef"
+dependencies = [
+ "bitflags",
+ "facet-core 0.28.0",
  "owo-colors",
 ]
 
 [[package]]
 name = "facet-serialize"
 version = "0.24.18"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5838b88d5e7fb752a88afa61144b8c7be9fd80e7bb12ed579a733485900789d8"
 dependencies = [
- "facet-core",
- "facet-reflect",
+ "facet-core 0.27.16",
+ "facet-reflect 0.27.16",
+ "log",
+]
+
+[[package]]
+name = "facet-serialize"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cca2724e50a1f41f9f0d3a035b9dd8ef4d174f2c3bfd7caaab4baeb6d69feed9"
+dependencies = [
+ "facet-core 0.28.0",
+ "facet-reflect 0.28.0",
  "log",
 ]
 
 [[package]]
 name = "facet-toml"
 version = "0.25.18"
-source = "git+https://github.com/facet-rs/facet?branch=main#1ae8c979feca4ec655fa6e0f8e9e4cf4d2180072"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7bda1f0ea90577b8c50754ed0a73ae83ceeeb483a2a4552fa4ad3bf0350dbbec"
 dependencies = [
  "ariadne",
- "facet-core",
- "facet-reflect",
- "facet-serialize",
+ "facet-core 0.27.16",
+ "facet-reflect 0.27.16",
+ "facet-serialize 0.24.18",
  "log",
  "num-traits",
  "owo-colors",
@@ -507,9 +551,9 @@ checksum = "1171693293099992e19cddea4e8b849964e9846f4acee11b3948bcc337be8776"
 
 [[package]]
 name = "libredox"
-version = "0.1.4"
+version = "0.1.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1580801010e535496706ba011c15f8532df6b42297d2e471fec38ceadd8c0638"
+checksum = "360e552c93fa0e8152ab463bc4c4837fce76a225df11dfaeea66c313de5e61f7"
 dependencies = [
  "bitflags",
  "libc",
@@ -640,9 +684,9 @@ dependencies = [
 
 [[package]]
 name = "redox_syscall"
-version = "0.5.13"
+version = "0.5.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d04b7d0ee6b4a0207a0a7adb104d23ecb0b47d6beae7152d0fa34b692b29fd6"
+checksum = "5407465600fb0548f1442edf71dd20683c6ed326200ace4b1ef0763521bb3b77"
 dependencies = [
  "bitflags",
 ]
@@ -674,22 +718,22 @@ dependencies = [
 
 [[package]]
 name = "rustix"
-version = "1.0.7"
+version = "1.0.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c71e83d6afe7ff64890ec6b71d6a69bb8a610ab78ce364b3352876bb4c801266"
+checksum = "11181fbabf243db407ef8df94a6ce0b2f9a733bd8be4ad02b4eda9602296cac8"
 dependencies = [
  "bitflags",
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.59.0",
+ "windows-sys 0.60.2",
 ]
 
 [[package]]
 name = "rustls"
-version = "0.23.28"
+version = "0.23.29"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7160e3e10bf4535308537f3c4e1641468cd0e485175d6163087c0393c7d46643"
+checksum = "2491382039b29b9b11ff08b76ff6c97cf287671dbb74f0be44bda389fffe9bd1"
 dependencies = [
  "log",
  "once_cell",
@@ -759,9 +803,9 @@ checksum = "f87165f0995f63a9fbeea62b64d10b4d9d8e78ec6d7d51fb2125fda7bb36788f"
 
 [[package]]
 name = "rustls-webpki"
-version = "0.103.3"
+version = "0.103.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e4a72fe2bcf7a6ac6fd7d0b9e5cb68aeb7d4c0a0271730218b3e92d43b4eb435"
+checksum = "0a17884ae0c1b773f1ccd2bd4a8c72f16da897310a98b0e84bf349ad5ead92fc"
 dependencies = [
  "ring",
  "rustls-pki-types",
@@ -992,11 +1036,10 @@ dependencies = [
 
 [[package]]
 name = "tool-sync"
-version = "0.2.0"
+version = "0.3.0"
 dependencies = [
  "console",
  "deko",
- "dirs",
  "facet",
  "facet-args",
  "facet-json",
@@ -1173,14 +1216,14 @@ version = "0.26.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "75c7f0ef91146ebfb530314f5f1d24528d7f0767efbfd31dce919275413e393e"
 dependencies = [
- "webpki-root-certs 1.0.1",
+ "webpki-root-certs 1.0.2",
 ]
 
 [[package]]
 name = "webpki-root-certs"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86138b15b2b7d561bc4469e77027b8dd005a43dc502e9031d1f5afc8ce1f280e"
+checksum = "4e4ffd8df1c57e87c325000a3d6ef93db75279dc3a231125aac571650f22b12a"
 dependencies = [
  "rustls-pki-types",
 ]
@@ -1191,14 +1234,14 @@ version = "0.26.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "521bc38abb08001b01866da9f51eb7c5d647a19260e00054a8c7fd5f9e57f7a9"
 dependencies = [
- "webpki-roots 1.0.1",
+ "webpki-roots 1.0.2",
 ]
 
 [[package]]
 name = "webpki-roots"
-version = "1.0.1"
+version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8782dd5a41a24eed3a4f40b606249b3e236ca61adf1f25ea4d45c73de122b502"
+checksum = "7e8983c3ab33d6fb807cfcdad2491c4ea8cbc8ed839181c7dfd9c67c83e261b2"
 dependencies = [
  "rustls-pki-types",
 ]
@@ -1211,6 +1254,12 @@ checksum = "cf221c93e13a30d793f7645a0e7762c55d169dbb0a49671918a2319d289b10bb"
 dependencies = [
  "windows-sys 0.59.0",
 ]
+
+[[package]]
+name = "windows-link"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e6ad25900d524eaabdbbb96d20b4311e1e7ae1699af4fb28c17ae66c80d798a"
 
 [[package]]
 name = "windows-sys"
@@ -1245,7 +1294,7 @@ version = "0.60.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f2f500e4d28234f72040990ec9d39e3a6b950f9f22d3dba18416c35882612bcb"
 dependencies = [
- "windows-targets 0.53.2",
+ "windows-targets 0.53.3",
 ]
 
 [[package]]
@@ -1281,10 +1330,11 @@ dependencies = [
 
 [[package]]
 name = "windows-targets"
-version = "0.53.2"
+version = "0.53.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c66f69fcc9ce11da9966ddb31a40968cad001c5bedeb5c2b82ede4253ab48aef"
+checksum = "d5fe6031c4041849d7c496a8ded650796e7b6ecc19df1a431c1a363342e5dc91"
 dependencies = [
+ "windows-link",
  "windows_aarch64_gnullvm 0.53.0",
  "windows_aarch64_msvc 0.53.0",
  "windows_i686_gnu 0.53.0",
@@ -1435,9 +1485,9 @@ checksum = "271414315aff87387382ec3d271b52d7ae78726f5d44ac98b4f4030c91880486"
 
 [[package]]
 name = "winnow"
-version = "0.7.11"
+version = "0.7.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "74c7b26e3480b707944fc872477815d29a8e429d2f93a1ce000f5fa84a15cbcd"
+checksum = "f3edebf492c8125044983378ecb5766203ad3b4c2f7a922bd7dd207f6d443e95"
 dependencies = [
  "memchr",
 ]
@@ -1474,9 +1524,9 @@ checksum = "ced3678a2879b30306d323f4542626697a464a97c0a07c9aebf7ebca65cd4dde"
 
 [[package]]
 name = "zip"
-version = "4.2.0"
+version = "4.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "95ab361742de920c5535880f89bbd611ee62002bf11341d16a5f057bb8ba6899"
+checksum = "9aed4ac33e8eb078c89e6cbb1d5c4c7703ec6d299fc3e7c3695af8f8b423468b"
 dependencies = [
  "arbitrary",
  "crc32fast",

@@ -23,13 +23,13 @@ path = "src/main.rs"
 toml = { version = "0.8", default-features = false, features = ["parse"] }
 
 # serde
-facet = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
-facet-pretty = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false }
-facet-toml = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["rich-diagnostics"] }
-facet-json = { git = "https://github.com/facet-rs/facet", branch = "main", default-features = false, features = ["rich-diagnostics"] }
+facet = { version = "0.28", default-features = false }
+facet-pretty = { version = "0.28", default-features = false }
+facet-json = { version = "0.28", default-features = false, features = ["rich-diagnostics"] }
+facet-toml = { version = "0.25", default-features = false, features = ["rich-diagnostics"] }
 
 # UX
-facet-args = { git = "https://github.com/facet-rs/facet", branch = "main", version = "0.19.17", default-features = false, features = ["rich-diagnostics"] }
+facet-args = { version = "0.28", default-features = false, features = ["rich-diagnostics"] }
 
 console = { version = "0.16", default-features = false }
 indicatif = { version = "0.18", default-features = false }
@@ -43,6 +43,5 @@ deko = { version = "0", default-features = false, features = ["flate2", "xz"] }
 tar = { version = "0.4", default-features = false }
 
 # search
-dirs = { version = "6", default-features = false }
 shellexpand = { version = "3", default-features = false, features = ["base-0", "tilde"] }
 tempfile = { version = "3", default-features = false }
