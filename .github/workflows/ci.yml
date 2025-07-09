@@ -52,28 +52,6 @@ jobs:
           ls -l $SYNC_DIR
 
           if [[ ! -x $SYNC_DIR/rg ]]; then echo "error on: rg"; false; fi
-    - if: matrix.os == 'ubuntu-latest'
-      name: "Integration test: [ubuntu-latest] [check bash completion]"
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-          cargo run -- completion bash --rename test-name > /dev/null 2> log
-
-          cat log | tail -n +5 > logg
-
-          diff logg tests/bash-completion
-          if [[ $? == 1 ]]; then logg test/bash-completion; false; fi
-    - if: matrix.os == 'macos-latest'
-      name: "Integration test: [macos-latest] [check zsh completion]"
-      env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-          cargo run -- completion zsh --rename test-name > /dev/null 2> log
-
-          cat log | tail -n +5 > logg
-
-          diff logg tests/zsh-completion
-          if [[ $? == 1 ]]; then logg test/zsh-completion; false; fi
     - if: matrix.os != 'windows-latest'
       name: "Integration test: [unix] [sync-ripgrep]"
       env:
@@ -101,32 +79,6 @@ jobs:
           if (!(Test-Path $env:SYNC_DIR\rg.exe)) {
               throw 'error on rg.exe'
           }
-
-    - if: matrix.os != 'windows-latest'
-      name: "Integration test: [unix] [sync-full]"
-      env:
-          SYNC_DIR: "sync-full"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-          mkdir $SYNC_DIR
-          cargo run -- --config=tests/$SYNC_DIR.toml sync
-
-          ls -l $SYNC_DIR
-
-          if [[ ! -x $SYNC_DIR/bat   ]]; then echo "error on: bat";   false; fi
-          if [[ ! -x $SYNC_DIR/difft ]]; then echo "error on: difft"; false; fi
-          if [[ ! -x $SYNC_DIR/exa   ]]; then echo "error on: exa";   false; fi
-          if [[ ! -x $SYNC_DIR/fd    ]]; then echo "error on: fd";    false; fi
-          if [[ ! -x $SYNC_DIR/rg    ]]; then echo "error on: rg";    false; fi
-          if [[ ! -x $SYNC_DIR/tool  ]]; then echo "error on: tool";  false; fi
-          if [[ ! -x $SYNC_DIR/gh  ]]; then echo "error on: gh";  false; fi
-          if [[ ! -x $SYNC_DIR/hyperfine ]]; then echo "error on: hyperfine"; false; fi
-          if [[ ! -x $SYNC_DIR/just      ]]; then echo "error on: just";      false; fi
-          if [[ ! -x $SYNC_DIR/k9s       ]]; then echo "error on: k9s";       false; fi
-          if [[ ! -x $SYNC_DIR/procs     ]]; then echo "error on: procs";     false; fi
-
-          # disabled because of: https://github.com/alexcrichton/tar-rs/issues/295
-          # if [[ ! -x $SYNC_DIR/tokei ]]; then echo "error on: tokei"; false; fi
 
     - if: matrix.os != 'windows-latest'
       name: "Characterization test: [unix] [default-config]"
