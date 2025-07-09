@@ -38,7 +38,7 @@ fn resolve_config_path(config_path: Option<PathBuf>) -> PathBuf {
 }
 
 fn get_default_config_path() -> PathBuf {
-    match dirs::home_dir() {
+    match std::env::home_dir() {
         Some(home_path) => {
             let mut path = PathBuf::new();
             path.push(home_path);
