@@ -52,6 +52,8 @@ impl<'a> Archive<'a> {
             None
             | Some((_, "exe"))
             | Some((_, "AppImage"))
+            | Some((_, "py"))
+            | Some((_, "pyz"))
             | Some((_, "ttf"))
             | Some((_, "otc"))
             | Some((_, "so")) => Archive {
