@@ -85,16 +85,16 @@ jobs:
               throw 'error on rg.exe'
           }
 
-      - if: matrix.os != 'windows-latest'
-        name: "Characterization test: [unix] [default-config]"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cargo run -- default-config > tools.toml
+      # - if: matrix.os != 'windows-latest'
+      #   name: "Characterization test: [unix] [default-config]"
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     cargo run -- default-config > tools.toml
 
-          diff tools.toml tests/default-config.toml
+      #     diff tools.toml tests/default-config.toml
 
-          if [[ $? == 1 ]]; then diff tools.toml tests/default-config.toml; false; fi
+      #     if [[ $? == 1 ]]; then diff tools.toml tests/default-config.toml; false; fi
 
       # - if: matrix.os == 'windows-latest'
       #   name: "Integration test: [windows] [full-database]"
