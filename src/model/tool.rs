@@ -97,21 +97,23 @@ impl ToolInfo {
         match self.asset_name.get_name_by_os() {
             None => Err(AssetError::OsSelectorUnknown),
             Some(asset_name) => {
-                let mut filtered_assets = assets
-                    .iter()
+                let useful_assets = assets.iter().filter(|&asset| {
+                    !COMPANION_EXTENSIONS
+                        .iter()
+                        .any(|ext| asset.name.ends_with(ext))
+                });
+                let mut filtered_assets = useful_assets
+                    .clone()
                     .filter(|&asset| asset.name.contains(asset_name))
-                    .filter(|&asset| {
-                        !COMPANION_EXTENSIONS
-                            .iter()
-                            .any(|ext| asset.name.ends_with(ext))
-                    })
                     .map(|asset| asset.to_owned())
                     .collect::<Vec<Asset>>();
                 match filtered_assets.len() {
-                    0 => Err(AssetError::NotFound(asset_name.clone())),
-
                     // This is safe because there is exactly 1 element
                     1 => Ok(filtered_assets.remove(0)),
+                    0 => Err(AssetError::NotFound(
+                        asset_name.clone(),
+                        useful_assets.map(|a| a.name.clone()).collect(),
+                    )),
                     _ => {
                         let assets: Vec<String> =
                             filtered_assets.into_iter().map(|item| item.name).collect();
@@ -284,7 +286,10 @@ mod tests {
 
         assert_eq!(
             tool_info.select_asset(&assets),
-            Err(AssetError::NotFound(asset_name.to_string()))
+            Err(AssetError::NotFound(
+                asset_name.to_string(),
+                vec!["1".to_string(), "2".to_string(), "3".to_string()]
+            ))
         );
     }
 

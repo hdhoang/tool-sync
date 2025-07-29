@@ -22,7 +22,7 @@ pub enum AssetError {
     OsSelectorUnknown,
 
     /// Asset name is not in the fetched assets
-    NotFound(String),
+    NotFound(String, Vec<String>),
 
     /// Multiple asset names are found
     MultipleFound(Vec<String>),
@@ -38,8 +38,12 @@ impl Display for AssetError {
                     get_current_os()
                 )
             }
-            Self::NotFound(asset_name) => {
-                write!(f, "No asset matching name: {asset_name}")
+            Self::NotFound(asset_name, available_assets) => {
+                write!(
+                    f,
+                    "No asset matching name: {asset_name} among {}",
+                    available_assets.pretty()
+                )
             }
             Self::MultipleFound(assets) => {
                 write!(
