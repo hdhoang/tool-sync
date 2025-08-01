@@ -148,7 +148,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Rust
-        uses: dtolnay/rust-toolchain@6ff96e92a9257c99b1465dfa039b4a9eb9acc9dd
+        uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
         with:
           toolchain: beta
           components: clippy, rustfmt
