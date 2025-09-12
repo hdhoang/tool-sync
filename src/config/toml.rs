@@ -2,7 +2,7 @@ use std::collections::BTreeMap;
 use std::fmt::{Display, Formatter};
 use std::fs;
 use std::path::PathBuf;
-use toml::{Value, map::Map};
+use toml::{Table, Value, map::Map};
 
 use crate::config::schema::{Config, ConfigAsset};
 use crate::infra::err;
@@ -85,9 +85,9 @@ fn parse_file(config_path: &PathBuf, proxy: Option<String>) -> Result<Config, To
 
 fn parse_string(contents: &str, proxy: Option<String>) -> Result<Config, TomlError> {
     contents
-        .parse::<Value>()
+        .parse::<Table>()
         .map_err(TomlError::Parse)
-        .and_then(|toml| decode_config(toml, proxy).map_err(TomlError::Decode))
+        .and_then(|toml| decode_config(Value::Table(toml), proxy).map_err(TomlError::Decode))
 }
 
 fn decode_config(toml: Value, proxy: Option<String>) -> Result<Config, DecodeError> {
@@ -198,7 +198,7 @@ mod tests {
             Err(error) => {
                 assert_eq!(
                     String::from(
-                        "[Parsing Error] TOML parse error at line 1, column 8\n  |\n1 | broken toml\n  |        ^\nexpected `.`, `=`\n"
+                        "[Parsing Error] TOML parse error at line 1, column 8\n  |\n1 | broken toml\n  |        ^\nkey with no value, expected `=`\n"
                     ),
                     error.to_string()
                 );
