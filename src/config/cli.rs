@@ -7,28 +7,7 @@ pub(crate) struct Args {
     pub config: Option<PathBuf>,
     #[facet(named, short = 'p', default=None)]
     pub proxy: Option<String>,
+
     #[facet(positional)]
-    pub command: Command,
-    #[facet(positional)]
-    pub tool: Option<String>,
-}
-
-#[repr(u8)]
-#[derive(facet::Facet)]
-#[facet(rename_all = "kebab-case")]
-#[allow(unused)] // facet renamed
-pub enum Command {
-    /// Print a default .tool.toml configuration to std out
-    DefaultConfig {
-        /// Print the default config file location instead
-        #[facet(long)]
-        path: bool,
-    },
-
-    /// Sync all tools specified in configuration file or the only one specified
-    /// in the command line
-    Sync,
-
-    /// Install a tool if it is hardcoded into internal database
-    Install,
+    pub tool: String,
 }

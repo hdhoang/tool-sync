@@ -30,10 +30,3 @@ this issue:
 
     process::exit(1);
 }
-
-/// Print just the message and exit
-/// This function can take in any type that implements the [`Display`] trait
-pub fn abort<Message: Display>(err_msg: Message) -> ! {
-    eprintln!("{err_msg}");
-    process::exit(1);
-}

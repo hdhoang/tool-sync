@@ -44,19 +44,6 @@ jobs:
 
       - name: Unit tests
         run: cargo test --verbose
-
-      - if: matrix.os != 'windows-latest'
-        name: "Integration test: [unix] [install ripgrep]"
-        env:
-          SYNC_DIR: "install-ripgrep"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mkdir $SYNC_DIR
-          cargo run -- --config=tests/$SYNC_DIR.toml install ripgrep
-
-          ls -l $SYNC_DIR
-
-          if [[ ! -x $SYNC_DIR/rg ]]; then echo "error on: rg"; false; fi
       - if: matrix.os != 'windows-latest'
         name: "Integration test: [unix] [sync-ripgrep]"
         env:
@@ -64,7 +51,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir $SYNC_DIR
-          cargo run -- --config=tests/$SYNC_DIR.toml sync ripgrep
+          cargo run -- --config=tests/$SYNC_DIR.toml ripgrep
 
           ls -l $SYNC_DIR
 
@@ -77,66 +64,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           mkdir $env:SYNC_DIR
-          cargo run -- --config="tests\$env:SYNC_DIR.toml" sync ripgrep
+          cargo run -- --config="tests\$env:SYNC_DIR.toml" ripgrep
 
           ls -l $env:SYNC_DIR
 
           if (!(Test-Path $env:SYNC_DIR\rg.exe)) {
               throw 'error on rg.exe'
           }
-
-      # - if: matrix.os != 'windows-latest'
-      #   name: "Characterization test: [unix] [default-config]"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     cargo run -- default-config > tools.toml
-
-      #     diff tools.toml tests/default-config.toml
-
-      #     if [[ $? == 1 ]]; then diff tools.toml tests/default-config.toml; false; fi
-
-      # - if: matrix.os == 'windows-latest'
-      #   name: "Integration test: [windows] [full-database]"
-      #   env:
-      #     SYNC_DIR: "sync-full"
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   run: |
-      #     mkdir $env:SYNC_DIR
-      #     cargo run -- --config="tests\$env:SYNC_DIR.toml" sync
-
-      #     ls -l $env:SYNC_DIR
-
-      #     if (!(Test-Path $env:SYNC_DIR\bat.exe)) {
-      #         throw 'error on bat.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\difft.exe)) {
-      #         throw 'error on difft.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\fd.exe)) {
-      #         throw 'error on fd.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\rg.exe)) {
-      #         throw 'error on rg.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\tool.exe)) {
-      #         throw 'error on tool.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\gh.exe)) {
-      #         throw 'error on gh.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\hyperfine.exe)) {
-      #         throw 'error on hyperfine.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\just.exe)) {
-      #         throw 'error on just.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\k9s.exe)) {
-      #         throw 'error on k9s.exe'
-      #     }
-      #     if (!(Test-Path $env:SYNC_DIR\procs.exe)) {
-      #         throw 'error on procs.exe'
-      #     }
 
   linters:
     name: linters
