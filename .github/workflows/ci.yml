@@ -28,7 +28,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # https://github.com/actions/cache/releases/tag/v4.2.3
+      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # https://github.com/actions/cache/releases/tag/v4.3.0
         name: Cache cargo
         with:
           path: |
