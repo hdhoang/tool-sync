@@ -21,15 +21,15 @@ path = "src/main.rs"
 [dependencies]
 # config
 toml = { version = "0.9", default-features = false, features = ["parse", "serde"] }
+facet-toml = { version = "0.30", default-features = false, features = ["rich-diagnostics"] }
 
 # serde
-facet = { version = "0.29", default-features = false }
-facet-pretty = { version = "0.29", default-features = false }
-facet-json = { version = "0.29", default-features = false, features = ["rich-diagnostics"] }
-facet-toml = { version = "0.25", default-features = false, features = ["rich-diagnostics"] }
+facet = { version = "0.31", default-features = false }
+facet-pretty = { version = "0.31", default-features = false }
+facet-json = { version = "0.31", default-features = false, features = ["rich-diagnostics"] }
 
 # UX
-facet-args = { version = "0.29", default-features = false, features = ["rich-diagnostics"] }
+facet-args = { version = "0.31", default-features = false, features = ["rich-diagnostics"] }
 
 console = { version = "0.16", default-features = false }
 indicatif = { version = "0.18", default-features = false }
