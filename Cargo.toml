@@ -38,7 +38,7 @@ indicatif = { version = "0.18", default-features = false }
 ureq = { version = "3", default-features = false, features = ["gzip", "platform-verifier", "rustls"] }
 
 # extract
-zip = { version = "6", default-features = false, features = ["deflate"] }
+zip = { version = "7", default-features = false, features = ["deflate"] }
 deko = { version = "0", default-features = false, features = ["flate2", "xz"] }
 tar = { version = "0.4", default-features = false }
 
