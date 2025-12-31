@@ -11,5 +11,5 @@ pub(crate) struct Args {
     pub proxy: Option<String>,
 
     #[facet(args::positional)]
-    pub tool: String,
+    pub tools: Vec<String>,
 }
