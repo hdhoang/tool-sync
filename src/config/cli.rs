@@ -1,13 +1,15 @@
 use std::path::PathBuf;
 
-#[derive(facet::Facet)]
+use facet_args as args;
+
+#[derive(facet::Facet, Default)]
 // #[command(author="Dmitrii Kovanikov <kovanikov@gmail.com>", version, about="A CLI tool to manage other CLI tools", long_about = None)]
 pub(crate) struct Args {
-    #[facet(named, short = 'c', default=None)]
+    #[facet(args::named, args::short = 'c')]
     pub config: Option<PathBuf>,
-    #[facet(named, short = 'p', default=None)]
+    #[facet(args::named, args::short = 'p')]
     pub proxy: Option<String>,
 
-    #[facet(positional)]
+    #[facet(args::positional)]
     pub tool: String,
 }
