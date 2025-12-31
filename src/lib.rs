@@ -16,7 +16,9 @@ pub fn run() {
     // TODO: this is redundant for the `default-config` command
     // See: https://github.com/chshersh/tool-sync/issues/75
     let config_path = resolve_config_path(args.config);
-    sync::sync_from_path(config_path, args.tools.first(), args.proxy)
+    for tool in args.tools {
+        sync::sync_from_path(config_path.clone(), Some(&tool), args.proxy.clone())
+    }
 }
 
 fn resolve_config_path(config_path: Option<PathBuf>) -> PathBuf {
